@@ -1,0 +1,26 @@
+import { User } from '@types';
+
+export const userList: User[] = [
+  { id: '1', name: '동건', tier: 0, gender: 'M' },
+  { id: '2', name: '효원', tier: 1, gender: 'M' },
+  { id: '3', name: '도우', tier: 1, gender: 'M' },
+  { id: '4', name: '영철', tier: 2, gender: 'M' },
+  { id: '5', name: '동현', tier: 2, gender: 'M' },
+  { id: '6', name: '상훈', tier: 2, gender: 'M' },
+  { id: '7', name: '승연', tier: 2, gender: 'M' },
+  { id: '8', name: '인영', tier: 2, gender: 'M' },
+  { id: '9', name: '하진', tier: 2, gender: 'M' },
+  { id: '10', name: '성표', tier: 2, gender: 'M' },
+  { id: '11', name: '민제', tier: 3, gender: 'M' },
+  { id: '12', name: '찬진', tier: 3, gender: 'M' },
+  { id: '13', name: '광휘', tier: 3, gender: 'M' },
+  { id: '14', name: '세광', tier: 4, gender: 'M' },
+  { id: '15', name: '승준', tier: 4, gender: 'M' },
+  { id: '16', name: '다은', tier: 4, gender: 'F' },
+  { id: '17', name: '지영', tier: 4, gender: 'F' },
+  { id: '18', name: '예린', tier: 4, gender: 'F' },
+  { id: '19', name: '민경', tier: 4, gender: 'F' },
+  { id: '20', name: '영무', tier: 4, gender: 'M' },
+  { id: '21', name: '용준', tier: 4, gender: 'M' },
+  { id: '22', name: '승민', tier: 4, gender: 'M' },
+];
