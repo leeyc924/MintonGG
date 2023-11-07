@@ -5,7 +5,7 @@ import { GameUser } from '@types';
 import { TIER_COLOR } from '@constants';
 import { UserCard, Accordion } from '@components';
 
-function App() {
+function Test() {
   const initGameUserList = useMemo<GameUser[]>(() => {
     return initUserList.map(user => ({ ...user, gameCount: 0, winRate: 0, win: 0, lose: 0 }));
   }, []);
@@ -98,4 +98,4 @@ function App() {
   );
 }
 
-export default App;
+export default Test;

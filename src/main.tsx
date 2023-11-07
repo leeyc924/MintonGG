@@ -1,5 +1,18 @@
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
 import './index.css';
+import { Navigate, Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
+import { GamePage, MainPage, UserPage } from '@pages';
+import { DefaultLayout } from '@layouts';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(<App />);
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<DefaultLayout />}>
+      <Route index element={<Navigate to="/main" />} />
+      <Route path="/main" element={<MainPage />} />
+      <Route path="/game" element={<GamePage />} />
+      <Route path="/user" element={<UserPage />} />
+    </Route>,
+  ),
+);
+
+ReactDOM.createRoot(document.getElementById('root')!).render(<RouterProvider router={router} />);

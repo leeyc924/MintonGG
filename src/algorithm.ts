@@ -1,3 +1,5 @@
+import { userList } from './db/user';
+
 function factorial(n: number): number {
   if (n === 0) {
     return 1;
@@ -11,7 +13,6 @@ function combination(n: number, k: number) {
 }
 
 function algorithm() {
-  console.log(combination);
   /**
    * 시나리오
    * 1. 가장 처음 시작하는 유저 4명 선택
@@ -21,6 +22,7 @@ function algorithm() {
    * b. 전판경기를 하지않았으며 가장적게 경기한 유저
    * c. 경기력이 많을수록 후순위
    */
+  userList;
 }
 
 export default algorithm;
