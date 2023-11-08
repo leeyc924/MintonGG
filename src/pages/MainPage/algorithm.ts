@@ -1,4 +1,4 @@
-import { userList } from './db/user';
+import { userList } from '../../db/user';
 
 function factorial(n: number): number {
   if (n === 0) {
@@ -22,7 +22,8 @@ function algorithm() {
    * b. 전판경기를 하지않았으며 가장적게 경기한 유저
    * c. 경기력이 많을수록 후순위
    */
-  userList;
+  const gameUserList = userList.map(user => ({ ...user, gameCount: 0, winRate: 0, win: 0, lose: 0 }));
+  
 }
 
 export default algorithm;
