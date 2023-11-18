@@ -20,14 +20,10 @@ const UserPage = () => {
             <div className={`p-2 flex-1 text-center ${TIER_COLOR[user.tier].background} border-r-[1px] border-solid`}>
               {user.tier === 99 ? '??' : user.tier}
             </div>
-            <div
-              className={`p-2 flex-1 h-full text-center ${
-                TIER_COLOR[user.tier].background
-              } border-r-[1px] border-solid`}
-            >
+            <div className={`p-2 flex-1 text-center ${TIER_COLOR[user.tier].background} border-r-[1px] border-solid`}>
               {user.name}
             </div>
-            <div className={`p-2 flex-1 h-full text-center ${TIER_COLOR[user.tier].background}`}>
+            <div className={`p-2 flex-1 text-center ${TIER_COLOR[user.tier].background}`}>
               {user.gender === 'F' ? '여자' : '남자'}
             </div>
           </div>
