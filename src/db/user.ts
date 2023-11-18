@@ -22,7 +22,7 @@ export const userList: User[] = [
   { id: '18', name: '이정우', tier: 99, gender: 'M' },
   { id: '19', name: '안광휘', tier: 3, gender: 'M' },
   { id: '20', name: '안효원', tier: 1, gender: 'M' },
-  { id: '21', name: '영연', tier: 5, gender: 'M' },
+  { id: '21', name: '영연', tier: 99, gender: 'F' },
   { id: '22', name: '용준', tier: 5, gender: 'M' },
   { id: '23', name: '은중', tier: 99, gender: 'M' },
   { id: '24', name: '배성우', tier: 99, gender: 'M' },

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const Nav = () => {
   return (
-    <div className="w-full h-12">
+    <div className="w-full h-12 shrink-0">
       <ul className="flex h-full">
         <CustomLink pathname="/main" title="메인" />
         <CustomLink pathname="/game" title="게임" />
