@@ -1,16 +1,16 @@
-import { userList } from '../../db/user';
+// import { userList } from '../../db/user';
 
-function factorial(n: number): number {
-  if (n === 0) {
-    return 1;
-  }
+// function factorial(n: number): number {
+//   if (n === 0) {
+//     return 1;
+//   }
 
-  return n * factorial(n - 1);
-}
+//   return n * factorial(n - 1);
+// }
 
-function combination(n: number, k: number) {
-  return factorial(n) / (factorial(k) * factorial(n - k));
-}
+// function combination(n: number, k: number) {
+//   return factorial(n) / (factorial(k) * factorial(n - k));
+// }
 
 function algorithm() {
   /**
@@ -22,8 +22,7 @@ function algorithm() {
    * b. 전판경기를 하지않았으며 가장적게 경기한 유저
    * c. 경기력이 많을수록 후순위
    */
-  const gameUserList = userList.map(user => ({ ...user, gameCount: 0, winRate: 0, win: 0, lose: 0 }));
-  
+  // const gameUserList = userList.map(user => ({ ...user, gameCount: 0, winRate: 0, win: 0, lose: 0 }));
 }
 
 export default algorithm;
