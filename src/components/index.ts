@@ -1,5 +1,4 @@
-export * from './UserCard';
-export { default as UserCard } from './UserCard';
-export * from './Accordion';
-export { default as Accordion } from './Accordion';
+export * from './Typography';
+export { default as Typography } from './Typography';
 export { default as Nav } from './Nav';
+export { default as Calendar } from './Calendar';
