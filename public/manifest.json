@@ -1,11 +1,11 @@
 {
-  "name": "MyProgressiveWebApp",
-  "short_name": "MyPWA",
-  "start_url": "",
+  "name": "MintonGG",
+  "short_name": "민턴GG",
+  "start_url": "https://courageous-sundae-54be66.netlify.app/user",
   "display": "standalone",
   "background_color": "#F8F7DA",
   "theme_color": "#8C383A",
-  "description": "PWA with Vite.js, React.js and TypeScript",
+  "description": "배드민턴 유저 관리",
   "icons": [
     {
       "src": "icons/favicon.ico",
