@@ -105,7 +105,7 @@ const Calendar = ({ currentViewDate, onDateClick, onNextClick, onPrevClick }: Ca
     <div className="">
       <div className="">
         {!!onPrevClick && <button onClick={handlePrevClick}>{'<'}</button>}
-        <Typography variant="H3" weight="bold">
+        <Typography fontSize="lg" weight="bold">
           {currentViewDate.get('year')}년 {currentViewDate.get('month') + 1}월
         </Typography>
         {!!onNextClick && <button onClick={handleNextClick}>{'>'}</button>}
@@ -114,7 +114,7 @@ const Calendar = ({ currentViewDate, onDateClick, onNextClick, onPrevClick }: Ca
         <ul role="row" className="">
           {WEEK_TO_KR.map((text, index) => (
             <li key={index}>
-              <Typography variant="D2" color="black" weight="bold" aria-label={text} tabIndex={-1}>
+              <Typography fontSize="sm" color="black" weight="bold" aria-label={text} tabIndex={-1}>
                 {text}
               </Typography>
             </li>
@@ -134,7 +134,7 @@ const Calendar = ({ currentViewDate, onDateClick, onNextClick, onPrevClick }: Ca
                       }요일`}
                       onClick={() => handleDateClick(dateInfo)}
                     >
-                      <Typography variant="D2" color="blue" weight="bold">
+                      <Typography fontSize="sm" color="blue" weight="bold">
                         {dateInfo.day}
                       </Typography>
                     </button>
