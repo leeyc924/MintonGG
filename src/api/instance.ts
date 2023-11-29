@@ -4,7 +4,7 @@ interface RequestConfig extends AxiosRequestConfig {
   suppressStatusCode?: number[];
 }
 
-const baseURL = import.meta.env.BASE_URL;
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 
 function createAxios(requestConfig: RequestConfig): AxiosInstance {
   const axiosInstance = axios.create({
