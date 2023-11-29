@@ -4,7 +4,7 @@ interface RequestConfig extends AxiosRequestConfig {
   suppressStatusCode?: number[];
 }
 
-const baseURL = 'http://localhost:8005/api';
+const baseURL = import.meta.env.BASE_URL;
 
 function createAxios(requestConfig: RequestConfig): AxiosInstance {
   const axiosInstance = axios.create({
