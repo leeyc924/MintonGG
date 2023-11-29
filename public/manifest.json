@@ -3,8 +3,8 @@
   "short_name": "민턴GG",
   "start_url": "https://courageous-sundae-54be66.netlify.app/user",
   "display": "standalone",
-  "background_color": "#F8F7DA",
-  "theme_color": "#8C383A",
+  "background_color": "#FFFFFF",
+  "theme_color": "#000000",
   "description": "배드민턴 유저 관리",
   "icons": [
     {
