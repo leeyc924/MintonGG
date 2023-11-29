@@ -83,3 +83,10 @@ export interface UserWarning {
    */
   warning_desc: string;
 }
+
+export interface UserListResponse {
+  /**
+   * user 목록
+   */
+  userList: User[];
+}

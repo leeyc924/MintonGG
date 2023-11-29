@@ -10,6 +10,13 @@ export default {
       ['tier-5']: '#ec4899', // pink-500
       ['tier-0']: '#737373', // zinc-500
     },
+    fontSize: {
+      xs: '0.75rem',
+      sm: '0.875rem',
+      base: '1rem',
+      lg: '1.375rem',
+      xl: '1.75rem',
+    },
     extend: {
       borderWidth: {
         1: '1px',

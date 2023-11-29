@@ -8,7 +8,7 @@ export interface TypographyProps
     'type'
   > {
   /** 텍스트 타입 지정 */
-  variant?: 'H1' | 'H2' | 'H3' | 'B1' | 'B2' | 'D1' | 'D2';
+  fontSize?: 'xs' | 'sm' | 'base' | 'lg' | 'xl';
   /** HTML 요소로 사용할 문자열 */
   tag?:
     | 'h1'
@@ -39,7 +39,7 @@ export interface TypographyProps
 }
 
 const Typography = ({
-  variant = 'B1',
+  fontSize = 'base',
   tag = 'span',
   weight = 'regular',
   color,
@@ -54,6 +54,11 @@ const Typography = ({
       className={classnames({
         ['underline']: !!underline,
         ['text-ellipsis']: !!isEllipsisOneLine,
+        'text-xs': fontSize === 'xs',
+        'text-sm': fontSize === 'sm',
+        'text-base': fontSize === 'base',
+        'text-lg': fontSize === 'lg',
+        'text-xl': fontSize === 'xl',
       })}
       {...props}
     >

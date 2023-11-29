@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './reset.css';
+import './tailwind.css';
 import { Navigate, Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { TierPage, MainPage, UserPage } from '@pages';
 import { DefaultLayout } from '@layouts';
