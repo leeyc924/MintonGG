@@ -90,3 +90,7 @@ export interface UserListResponse {
    */
   userList: User[];
 }
+
+export interface UserDetailRequest {
+  id: User['id'];
+}
