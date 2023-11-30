@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './reset.css';
 import './tailwind.css';
 import { Navigate, Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
-import { TierPage, MainPage, UserPage } from '@pages';
+import { TierPage, MainPage, UserPage, LoginPage, UserEditPage } from '@pages';
 import { DefaultLayout } from '@layouts';
-import LoginPage from './pages/Login';
 
 const queryClient = new QueryClient();
 
@@ -16,6 +15,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<LoginPage />} />
       <Route path="/main" element={<MainPage />} />
       <Route path="/user" element={<UserPage />} />
+      <Route path="/user/edit" element={<UserEditPage />} />
       <Route path="/tier" element={<TierPage />} />
     </Route>,
   ),
