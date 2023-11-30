@@ -52,7 +52,7 @@ export interface UserTier {
   /**
    * seqno
    */
-  id: string;
+  id: number;
   /**
    * 유저 티어 정보
    * 0: 알수 없음
@@ -93,4 +93,37 @@ export interface UserListResponse {
 
 export interface UserDetailRequest {
   id: User['id'];
+}
+
+export interface UserDetailResponse {
+  userInfo: User;
+}
+
+export interface UserEditRequest {
+  /**
+   * 유저 고유 ID
+   */
+  id: number;
+  /**
+   * 유저 이름
+   */
+  name: string;
+  /**
+   * 유저 나이
+   */
+  age: string;
+  /**
+   * 성별 정보
+   * F: 여자
+   * M: 남자
+   */
+  gender: Gender;
+  /**
+   * 사는 지역
+   */
+  address: string;
+  /**
+   * 가입 날짜
+   */
+  join_dt: string;
 }

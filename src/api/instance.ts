@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { FailureResponse } from '../types/api';
 
 interface RequestConfig extends AxiosRequestConfig {
   suppressStatusCode?: number[];
@@ -14,6 +15,14 @@ function createAxios(requestConfig: RequestConfig): AxiosInstance {
       'Content-Type': 'application/json',
     },
   });
+
+  axiosInstance.interceptors.response.use(
+    response => response,
+    async error => {
+      const errorData: FailureResponse = error.response?.data;
+      return Promise.reject(errorData || error);
+    },
+  );
 
   return axiosInstance;
 }

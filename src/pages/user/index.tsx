@@ -3,6 +3,7 @@ import { getUserList } from '@api';
 import { Typography } from '@components';
 import { useQuery } from '@tanstack/react-query';
 import { FailureResponse } from '@types';
+import { Link } from 'react-router-dom';
 
 const User = () => {
   const { data, isLoading, error } = useQuery<Awaited<ReturnType<typeof getUserList>>, FailureResponse>({
@@ -33,7 +34,7 @@ const User = () => {
           <Typography fontSize="sm">{error.message}</Typography>
         ) : (
           data?.userList?.map((user, index) => (
-            <a key={user.id} className="flex w-full py-2" href={`/user/edit?id=${user.id}`}>
+            <Link key={user.id} className="flex w-full py-2" to={`/user/edit?id=${user.id}`}>
               <div className="text-center shrink-0 px-2 basis-8">
                 <Typography>{index + 1}</Typography>
               </div>
@@ -48,7 +49,7 @@ const User = () => {
               <div className="text-center shrink-0 px-2 basis-20">
                 <Typography>23.11.28</Typography>
               </div>
-            </a>
+            </Link>
           ))
         )}
       </div>
