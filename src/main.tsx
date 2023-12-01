@@ -16,6 +16,7 @@ const router = createBrowserRouter(
       <Route path="/main" element={<MainPage />} />
       <Route path="/user/list" element={<UserListPage />} />
       <Route path="/user/detail" element={<UserDetailPage />} />
+      <Route path="/user/*" element={<Navigate to="/user/list" />} />
       <Route path="/tier" element={<TierPage />} />
       <Route path="*" element={<Navigate to="/main" />} />
     </Route>,

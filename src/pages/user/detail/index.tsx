@@ -81,7 +81,7 @@ const Detail = () => {
 
       await removeUser({ id: data?.userInfo?.id });
       alert('삭제 성공');
-      navigate('/user');
+      navigate('/user/list');
     } catch (error) {
       console.log(`error`, error);
       alert('삭제 실패');

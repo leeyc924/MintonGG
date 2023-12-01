@@ -1,4 +1,4 @@
-import { UserDetailRequest, UserDetailResponse, UserEditRequest, UserListResponse } from '@types';
+import { UserAddRequest, UserDetailRequest, UserDetailResponse, UserEditRequest, UserListResponse } from '@types';
 import axiosClient from './instance';
 
 export const getUserList = async (): Promise<UserListResponse> => {
@@ -8,6 +8,11 @@ export const getUserList = async (): Promise<UserListResponse> => {
 
 export const getUserDetail = async ({ id }: UserDetailRequest): Promise<UserDetailResponse> => {
   const response = await axiosClient.get(`/user/detail?id=${id}`);
+  return response.data;
+};
+
+export const addUser = async (body: UserAddRequest): Promise<boolean> => {
+  const response = await axiosClient.post(`/user/add`, body);
   return response.data;
 };
 

@@ -1,18 +1,32 @@
+import { useCallback } from 'react';
 import dayjs from 'dayjs';
-import { getUserList } from '@api';
+import { addUser, getUserList } from '@api';
 import { Typography } from '@components';
 import { useQuery } from '@tanstack/react-query';
 import { FailureResponse } from '@types';
 import { Link } from 'react-router-dom';
+import { FaUserPlus as AddIcon } from 'react-icons/fa';
 
 const UserList = () => {
-  const { data, isLoading, error } = useQuery<Awaited<ReturnType<typeof getUserList>>, FailureResponse>({
+  const { data, isLoading, error, refetch } = useQuery<Awaited<ReturnType<typeof getUserList>>, FailureResponse>({
     queryKey: ['users'],
     queryFn: getUserList,
+    retry: false,
   });
 
+  const handleAddUser = useCallback(async () => {
+    try {
+      await addUser({ address: '영등포', age: '2004', gender: 'M', join_dt: dayjs().toISOString(), name: '홍길동' });
+      refetch();
+      alert('유저가 추가되었습니다');
+    } catch (error) {
+      console.log(error);
+      alert('유저 추가에 실패햇습니다');
+    }
+  }, [refetch]);
+
   return (
-    <div className="flex-1 flex flex-col">
+    <div className="relative flex-1 flex flex-col">
       <div className="flex w-full py-2 border-b-1 border-solid">
         <div className="text-center shrink-0 px-2 basis-8">
           <Typography fontSize="sm">no</Typography>
@@ -53,6 +67,12 @@ const UserList = () => {
           ))
         )}
       </div>
+      <button
+        className="fixed rounded-full right-2 bottom-14 z-10 bg-white border-solid border-1 w-11 h-11 flex items-center justify-center"
+        onClick={handleAddUser}
+      >
+        <AddIcon size={24} />
+      </button>
     </div>
   );
 };

@@ -9,6 +9,7 @@ export default {
       ['tier-4']: '#eab308', // yellow-500
       ['tier-5']: '#ec4899', // pink-500
       ['tier-0']: '#737373', // zinc-500
+      white: '#ffffff',
     },
     fontSize: {
       xs: '0.75rem',
