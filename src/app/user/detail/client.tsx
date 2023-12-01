@@ -4,40 +4,24 @@ import { useCallback } from 'react';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
+import { FaUserCircle as ProfileIcon, FaUserEdit as EditIcon } from 'react-icons/fa';
+// import { HiUserRemove as RemoveIcon } from 'react-icons/hi';
 import { UserDetailResponse } from '@types';
 import { editUser, removeUser } from '@api-client';
+import { Typography } from '@components';
 
 interface UseDetailClientProps {
   data: UserDetailResponse;
 }
 
 const UserDetailPage = ({ data: { userInfo } }: UseDetailClientProps) => {
-  const { register, handleSubmit, setValue } = useForm<UserDetailResponse['userInfo']>({
+  const router = useRouter();
+  const { register, handleSubmit } = useForm<UserDetailResponse['userInfo']>({
     defaultValues: {
       ...userInfo,
       join_dt: dayjs(userInfo.join_dt).format('YYYY.MM.DD'),
     },
   });
-  const router = useRouter();
-
-  // useEffect(() => {
-  //   if (!data?.userInfo) {
-  //     return;
-  //   }
-
-  //   setValue('name', data.userInfo.name);
-  //   setValue('age', data.userInfo.age);
-  //   setValue('address', data.userInfo.address);
-  //   setValue('gender', data.userInfo.gender);
-  //   setValue('join_dt', dayjs(data.userInfo.join_dt).format('YYYY.MM.DD'));
-  // }, [data?.userInfo, setValue]);
-
-  // useEffect(() => {
-  //   if (isError && error) {
-  //     alert('유저 정보가 없습니다');
-  //     navigate('/user');
-  //   }
-  // }, [error, isError, navigate]);
 
   const onSubmit: SubmitHandler<UserDetailResponse['userInfo']> = useCallback(
     async ({ address, age, gender, join_dt, name }) => {
@@ -85,47 +69,66 @@ const UserDetailPage = ({ data: { userInfo } }: UseDetailClientProps) => {
   }, [router, userInfo?.id]);
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit, onError)}>
-        <div className="flex gap-2">
-          <label htmlFor="name">이름</label>
-          <input id="name" {...register('name', { required: '이름을 입력해 주세요' })} />
+    <div className="flex flex-col h-full">
+      <form className="flex flex-col mx-auto h-full w-96 mt-10 gap-4" onSubmit={handleSubmit(onSubmit, onError)}>
+        <div className="flex mx-auto">
+          <ProfileIcon color="#333" size={128} />
         </div>
-        <div className="flex gap-2">
-          <label htmlFor="age">나이</label>
-          <input id="age" {...register('age', { required: '나이를 입력해 주세요', maxLength: 4 })} />
-        </div>
-        <div className="flex gap-2">
-          <label htmlFor="address">지역</label>
-          <input id="address" {...register('address', { required: '지역을 입력해 주세요' })} />
-        </div>
-        <div className="flex gap-2">
-          <label>성별</label>
-          <label>
-            남
-            <input type="radio" value="M" {...register('gender')} />
-          </label>
-          <label>
-            여
-            <input type="radio" value="F" {...register('gender')} />
-          </label>
-        </div>
-        <div className="flex gap-2">
-          <label>가입일</label>
-          <input
-            {...register('join_dt', {
-              required: '가입일을 입력해 주세요',
-              pattern: /^\d{4}\.\d{2}\.\d{2}$/gi,
-            })}
-          />
-        </div>
-        <div className="flex gap-2">
-          <button type="submit" className="bg-tier-2">
-            수정하기
-          </button>
-          <button type="button" className="bg-tier-5" onClick={handleRemove}>
-            삭제하기
-          </button>
+        <div className="flex flex-col mx-auto">
+          <div className="flex gap-2">
+            <div className="basis-12 shrink-0">
+              <Typography fontSize="base">이름</Typography>
+            </div>
+            <input className="text-base flex-1" {...register('name', { required: '이름을 입력해 주세요' })} />
+          </div>
+          <div className="flex gap-2">
+            <div className="basis-12 shrink-0">
+              <Typography fontSize="base">나이</Typography>
+            </div>
+            <input className="text-base" {...register('age', { required: '나이를 입력해 주세요', maxLength: 4 })} />
+          </div>
+          <div className="flex gap-2">
+            <div className="basis-12 shrink-0">
+              <Typography fontSize="base">지역</Typography>
+            </div>
+            <input className="text-base" {...register('address', { required: '지역을 입력해 주세요' })} />
+          </div>
+          <div className="flex gap-2">
+            <div className="basis-12 shrink-0">
+              <Typography fontSize="base">성별</Typography>
+            </div>
+            <div className="flex gap-1">
+              <Typography fontSize="base">
+                남
+                <input className="text-base" type="radio" value="M" {...register('gender')} />
+              </Typography>
+              <Typography fontSize="base">
+                여
+                <input className="text-base" type="radio" value="F" {...register('gender')} />
+              </Typography>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <div className="basis-12 shrink-0">
+              <Typography fontSize="base">가입일</Typography>
+            </div>
+            <input
+              className="text-base"
+              {...register('join_dt', {
+                required: '가입일을 입력해 주세요',
+                pattern: /^\d{4}\.\d{2}\.\d{2}$/gi,
+              })}
+            />
+          </div>
+          <div className="flex ml-auto">
+            <div className="flex gap-1 ml-auto">
+              <button type="submit">수정{/* <EditIcon size={24} color="blue" /> */}</button>
+              <button type="button" onClick={handleRemove}>
+                삭제
+                {/* <RemoveIcon size={24} color="red" /> */}
+              </button>
+            </div>
+          </div>
         </div>
       </form>
     </div>
