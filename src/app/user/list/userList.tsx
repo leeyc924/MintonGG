@@ -1,13 +1,15 @@
 import dayjs from 'dayjs';
 import Link from 'next/link';
-import { getUserList } from '@api-server';
 import { Typography } from '@components';
+import { UserListResponse } from '@types';
 
-const UserList = async () => {
-  const data = await getUserList();
+interface UserListProps {
+  data: UserListResponse;
+}
 
+const UserList = async ({ data }: UserListProps) => {
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full px-3">
       {data.userList.map((user, index) => (
         <Link key={user.id} className="flex w-full py-2" href={`/user/detail?id=${user.id}`} prefetch={false}>
           <div className="text-center shrink-0 px-2 basis-8">

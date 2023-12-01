@@ -1,12 +1,18 @@
 import { Suspense } from 'react';
 import { Typography } from '@components';
-import UserAddIcon from './client';
+import { getUserList } from '@api-server';
+import UserAddIcon from './tool';
 import UserList from './userList';
+import Tool from './tool';
 
 const UserListPage = async () => {
+  const data = await getUserList();
   return (
     <div className="relative flex-1 flex flex-col">
-      <div className="flex w-full py-2 border-b-1 border-solid">
+      <div>
+        <Tool data={data} />
+      </div>
+      <div className="flex w-full py-2 border-b-1 border-solid px-3">
         <div className="text-center shrink-0 px-2 basis-8">
           <Typography fontSize="sm">no</Typography>
         </div>
@@ -20,10 +26,7 @@ const UserListPage = async () => {
           <Typography fontSize="sm">최근참여일</Typography>
         </div>
       </div>
-      <Suspense fallback={<div>...loading</div>}>
-        <UserList />
-      </Suspense>
-      <UserAddIcon />
+      <UserList data={data} />
     </div>
   );
 };

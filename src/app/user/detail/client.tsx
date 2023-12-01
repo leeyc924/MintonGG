@@ -58,7 +58,6 @@ const UserDetailPage = ({ data: { userInfo } }: UseDetailClientProps) => {
       if (!userInfo.id) {
         return;
       }
-
       await removeUser({ id: userInfo?.id });
       alert('삭제 성공');
       router.push('/user/list');
