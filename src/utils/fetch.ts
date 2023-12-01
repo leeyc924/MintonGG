@@ -38,7 +38,6 @@ const formatHeader = <T extends Headers>(headers: T): RequestHeaders | undefined
   };
 };
 
-
 export const fetchClient = (() => {
   const print: Print = async (method, path, init, headers) => {
     if (typeof globalThis !== 'undefined' && typeof window === 'undefined' && !headers) {

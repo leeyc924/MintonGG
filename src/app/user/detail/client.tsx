@@ -1,22 +1,22 @@
 'use client';
 
 import { useCallback } from 'react';
-import { editUser, removeUser,  } from '@api-client';
-import { UserDetailResponse } from '@types';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
+import { UserDetailResponse } from '@types';
+import { editUser, removeUser } from '@api-client';
 
 interface UseDetailClientProps {
   data: UserDetailResponse;
 }
 
-const UserDetailPage = ({ data: {userInfo} }: UseDetailClientProps) => {
+const UserDetailPage = ({ data: { userInfo } }: UseDetailClientProps) => {
   const { register, handleSubmit, setValue } = useForm<UserDetailResponse['userInfo']>({
     defaultValues: {
       ...userInfo,
-      'join_dt': dayjs(userInfo.join_dt).format('YYYY.MM.DD'),
-    }
+      join_dt: dayjs(userInfo.join_dt).format('YYYY.MM.DD'),
+    },
   });
   const router = useRouter();
 
@@ -77,7 +77,7 @@ const UserDetailPage = ({ data: {userInfo} }: UseDetailClientProps) => {
 
       await removeUser({ id: userInfo?.id });
       alert('삭제 성공');
-router.push('/user/list');
+      router.push('/user/list');
     } catch (error) {
       console.log(`error`, error);
       alert('삭제 실패');
@@ -86,48 +86,48 @@ router.push('/user/list');
 
   return (
     <div>
-        <form onSubmit={handleSubmit(onSubmit, onError)}>
-          <div className="flex gap-2">
-            <label htmlFor="name">이름</label>
-            <input id="name" {...register('name', { required: '이름을 입력해 주세요' })} />
-          </div>
-          <div className="flex gap-2">
-            <label htmlFor="age">나이</label>
-            <input id="age" {...register('age', { required: '나이를 입력해 주세요', maxLength: 4 })} />
-          </div>
-          <div className="flex gap-2">
-            <label htmlFor="address">지역</label>
-            <input id="address" {...register('address', { required: '지역을 입력해 주세요' })} />
-          </div>
-          <div className="flex gap-2">
-            <label>성별</label>
-            <label>
-              남
-              <input type="radio" value="M" {...register('gender')} />
-            </label>
-            <label>
-              여
-              <input type="radio" value="F" {...register('gender')} />
-            </label>
-          </div>
-          <div className="flex gap-2">
-            <label>가입일</label>
-            <input
-              {...register('join_dt', {
-                required: '가입일을 입력해 주세요',
-                pattern: /^\d{4}\.\d{2}\.\d{2}$/gi,
-              })}
-            />
-          </div>
-          <div className="flex gap-2">
-            <button type="submit" className="bg-tier-2">
-              수정하기
-            </button>
-            <button type="button" className="bg-tier-5" onClick={handleRemove}>
-              삭제하기
-            </button>
-          </div>
-        </form>
+      <form onSubmit={handleSubmit(onSubmit, onError)}>
+        <div className="flex gap-2">
+          <label htmlFor="name">이름</label>
+          <input id="name" {...register('name', { required: '이름을 입력해 주세요' })} />
+        </div>
+        <div className="flex gap-2">
+          <label htmlFor="age">나이</label>
+          <input id="age" {...register('age', { required: '나이를 입력해 주세요', maxLength: 4 })} />
+        </div>
+        <div className="flex gap-2">
+          <label htmlFor="address">지역</label>
+          <input id="address" {...register('address', { required: '지역을 입력해 주세요' })} />
+        </div>
+        <div className="flex gap-2">
+          <label>성별</label>
+          <label>
+            남
+            <input type="radio" value="M" {...register('gender')} />
+          </label>
+          <label>
+            여
+            <input type="radio" value="F" {...register('gender')} />
+          </label>
+        </div>
+        <div className="flex gap-2">
+          <label>가입일</label>
+          <input
+            {...register('join_dt', {
+              required: '가입일을 입력해 주세요',
+              pattern: /^\d{4}\.\d{2}\.\d{2}$/gi,
+            })}
+          />
+        </div>
+        <div className="flex gap-2">
+          <button type="submit" className="bg-tier-2">
+            수정하기
+          </button>
+          <button type="button" className="bg-tier-5" onClick={handleRemove}>
+            삭제하기
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

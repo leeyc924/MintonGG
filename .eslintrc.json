@@ -1,3 +1,195 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "ignorePatterns": ["dist"],
+  "extends": [
+    "next",
+    "prettier",
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:import/recommended",
+    "plugin:react/recommended",
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": ["react", "@typescript-eslint", "import"],
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "project": ["tsconfig.json"]
+      }
+    }
+  },
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "groups": ["type", "builtin", "external", "internal", "parent", "sibling", "index", "object"],
+        "pathGroups": [
+          {
+            "pattern": "{react*, react*/**}",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "@**/*/**",
+            "group": "internal",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["type", "external", "internal"]
+      }
+    ],
+    "prettier/prettier": [
+      "error",
+      {
+        "parser": "typescript",
+        "printWidth": 120,
+        "tabWidth": 2,
+        "singleQuote": true,
+        "trailingComma": "all",
+        "bracketSpacing": true,
+        "semi": true,
+        "useTabs": false,
+        "arrowParens": "avoid",
+        "endOfLine": "auto"
+      }
+    ],
+    "prefer-const": "error",
+    "@typescript-eslint/no-non-null-assertion": "error",
+    "react-hooks/exhaustive-deps": [
+      "warn",
+      {
+        "enableDangerousAutofixThisMayCauseInfiniteLoops": true
+      }
+    ],
+    "no-console": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "no-prototype-builtins": "warn",
+    "no-return-await": "warn",
+    "react-hooks/rules-of-hooks": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "react/react-in-jsx-scope": "off",
+    "no-case-declarations": "off",
+    "react/prop-types": "off",
+    "react/no-unescaped-entities": "off",
+    "react/display-name": "off",
+    "import/no-anonymous-default-export": "off",
+    "jsx-a11y/role-supports-aria-props": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "no-restricted-globals": "off",
+    "@typescript-eslint/no-loss-of-precision": "off",
+    "import/no-unresolved": "off",
+    "import/default": "off"
+  }
 }
+
+// module.exports = {
+//   root: true,
+//   env: { browser: true, es2020: true },
+//   extends: [
+//     "eslint:recommended",
+//     "plugin:@typescript-eslint/recommended",
+//     "plugin:react-hooks/recommended",
+//     "plugin:@tanstack/eslint-plugin-query/recommended",
+//   ],
+//   ignorePatterns: ["dist", ".eslintrc.cjs"],
+//   parser: "@typescript-eslint/parser",
+//   settings: {
+//     "import/resolver": {
+//       typescript: {
+//         project: ["tsconfig.json", "packages/*/tsconfig.json"],
+//       },
+//     },
+//   },
+//   plugins: [
+//     "react-refresh",
+//     "prettier",
+//     "eslint:recommended",
+//     "plugin:@typescript-eslint/recommended",
+//     "plugin:import/typescript",
+//     "plugin:import/recommended",
+//     "plugin:react/recommended",
+//     "plugin:prettier/recommended",
+//     "@tanstack/query",
+//   ],
+//   rules: {
+//     "import/order": [
+//       "error",
+//       {
+//         groups: ["type", "builtin", "external", "internal", "parent", "sibling", "index", "object"],
+//         pathGroups: [
+//           {
+//             pattern: "{react*, react*/**}",
+//             group: "external",
+//             position: "before",
+//           },
+//           {
+//             pattern: "@component/*/**",
+//             group: "internal",
+//             position: "after",
+//           },
+//         ],
+//         pathGroupsExcludedImportTypes: ["type", "external", "internal"],
+//       },
+//     ],
+//     "prettier/prettier": [
+//       "error",
+//       {
+//         parser: "typescript",
+//         singleQuote: true,
+//         printWidth: 120,
+//         tabWidth: 2,
+//         trailingComma: "all",
+//         bracketSpacing: true,
+//         semi: true,
+//         useTabs: false,
+//         arrowParens: "avoid",
+//         endOfLine: "auto",
+//       },
+//     ],
+//     "prefer-const": "error",
+//     "@typescript-eslint/no-non-null-assertion": "error",
+//     "react-hooks/exhaustive-deps": [
+//       "warn",
+//       {
+//         enableDangerousAutofixThisMayCauseInfiniteLoops: true,
+//       },
+//     ],
+//     "no-console": "warn",
+//     "@typescript-eslint/no-unused-vars": "warn",
+//     "@typescript-eslint/no-explicit-any": "warn",
+//     "no-prototype-builtins": "warn",
+//     "no-return-await": "warn",
+//     "react-hooks/rules-of-hooks": "off",
+//     "turbo/no-undeclared-env-vars": "off",
+//     "@typescript-eslint/no-var-requires": "off",
+//     "react/react-in-jsx-scope": "off",
+//     "no-case-declarations": "off",
+//     "react/prop-types": "off",
+//     "react/no-unescaped-entities": "off",
+//     "react/display-name": "off",
+//     "import/no-anonymous-default-export": "off",
+//     "jsx-a11y/role-supports-aria-props": "off",
+//     "@typescript-eslint/explicit-module-boundary-types": "off",
+//     "no-restricted-globals": "off",
+//     "@typescript-eslint/no-loss-of-precision": "off",
+//     "import/no-unresolved": "off",
+//     "import/default": "off",
+//     "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+//     "@tanstack/query/exhaustive-deps": "error",
+//     "@tanstack/query/no-rest-destructuring": "warn",
+//     "@tanstack/query/stable-query-client": "error",
+//   },
+// };
