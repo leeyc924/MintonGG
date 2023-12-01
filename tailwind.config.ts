@@ -1,6 +1,7 @@
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./index.html', './src/**/*.{html,js,tsx,ts}'],
+import type { Config } from 'tailwindcss';
+
+const config: Config = {
+  content: ['./src/components/**/*.{js,ts,jsx,tsx,mdx}', './src/app/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     colors: {
       ['tier-1']: '#8b5cf6', // violet-500
@@ -26,3 +27,4 @@ export default {
   },
   plugins: [],
 };
+export default config;

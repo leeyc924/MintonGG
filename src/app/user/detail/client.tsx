@@ -1,62 +1,58 @@
-import { useCallback, useEffect, useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { editUserInfo, removeUser, getUserDetail } from '@api';
-import { FailureResponse, UserDetailResponse } from '@types';
-import { Loading } from '@components';
-import { parseToNumber } from '@utils';
+'use client';
+
+import { useCallback } from 'react';
+import { editUser, removeUser,  } from '@api-client';
+import { UserDetailResponse } from '@types';
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import dayjs from 'dayjs';
 
-const Detail = () => {
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const id = useMemo(() => parseToNumber(searchParams.get('id')), [searchParams]);
+interface UseDetailClientProps {
+  data: UserDetailResponse;
+}
 
-  const { data, isLoading, error, isSuccess, isError } = useQuery<
-    Awaited<ReturnType<typeof getUserDetail>>,
-    FailureResponse
-  >({
-    queryKey: ['users', id],
-    queryFn: () => getUserDetail({ id }),
-    retry: false,
+const UserDetailPage = ({ data: {userInfo} }: UseDetailClientProps) => {
+  const { register, handleSubmit, setValue } = useForm<UserDetailResponse['userInfo']>({
+    defaultValues: {
+      ...userInfo,
+      'join_dt': dayjs(userInfo.join_dt).format('YYYY.MM.DD'),
+    }
   });
+  const router = useRouter();
 
-  const { register, handleSubmit, setValue } = useForm<UserDetailResponse['userInfo']>();
+  // useEffect(() => {
+  //   if (!data?.userInfo) {
+  //     return;
+  //   }
 
-  useEffect(() => {
-    if (!data?.userInfo) {
-      return;
-    }
+  //   setValue('name', data.userInfo.name);
+  //   setValue('age', data.userInfo.age);
+  //   setValue('address', data.userInfo.address);
+  //   setValue('gender', data.userInfo.gender);
+  //   setValue('join_dt', dayjs(data.userInfo.join_dt).format('YYYY.MM.DD'));
+  // }, [data?.userInfo, setValue]);
 
-    setValue('name', data.userInfo.name);
-    setValue('age', data.userInfo.age);
-    setValue('address', data.userInfo.address);
-    setValue('gender', data.userInfo.gender);
-    setValue('join_dt', dayjs(data.userInfo.join_dt).format('YYYY.MM.DD'));
-  }, [data?.userInfo, setValue]);
-
-  useEffect(() => {
-    if (isError && error) {
-      alert('유저 정보가 없습니다');
-      navigate('/user');
-    }
-  }, [error, isError, navigate]);
+  // useEffect(() => {
+  //   if (isError && error) {
+  //     alert('유저 정보가 없습니다');
+  //     navigate('/user');
+  //   }
+  // }, [error, isError, navigate]);
 
   const onSubmit: SubmitHandler<UserDetailResponse['userInfo']> = useCallback(
     async ({ address, age, gender, join_dt, name }) => {
       try {
-        if (!data?.userInfo?.id) {
+        if (!userInfo?.id) {
           return;
         }
 
-        await editUserInfo({
+        await editUser({
           address,
           age,
           gender,
           join_dt,
           name,
-          id: data?.userInfo?.id,
+          id: userInfo?.id,
         });
         alert('수정 성공');
       } catch (error) {
@@ -64,7 +60,7 @@ const Detail = () => {
         alert('수정 실패');
       }
     },
-    [data?.userInfo?.id],
+    [userInfo?.id],
   );
 
   const onError = useCallback<SubmitErrorHandler<UserDetailResponse['userInfo']>>(error => {
@@ -75,24 +71,21 @@ const Detail = () => {
 
   const handleRemove = useCallback(async () => {
     try {
-      if (!data?.userInfo.id) {
+      if (!userInfo.id) {
         return;
       }
 
-      await removeUser({ id: data?.userInfo?.id });
+      await removeUser({ id: userInfo?.id });
       alert('삭제 성공');
-      navigate('/user/list');
+router.push('/user/list');
     } catch (error) {
       console.log(`error`, error);
       alert('삭제 실패');
     }
-  }, [data?.userInfo?.id, navigate]);
+  }, [router, userInfo?.id]);
 
   return (
     <div>
-      {isLoading ? (
-        <Loading />
-      ) : isSuccess ? (
         <form onSubmit={handleSubmit(onSubmit, onError)}>
           <div className="flex gap-2">
             <label htmlFor="name">이름</label>
@@ -135,11 +128,8 @@ const Detail = () => {
             </button>
           </div>
         </form>
-      ) : (
-        <>{error ?? '알수 없는 에러'}</>
-      )}
     </div>
   );
 };
 
-export default Detail;
+export default UserDetailPage;

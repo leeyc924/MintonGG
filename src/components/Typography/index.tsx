@@ -1,3 +1,5 @@
+'use client';
+
 import { AllHTMLAttributes, memo, ReactNode } from 'react';
 import { Palette } from '@types';
 import { classnames } from '@utils';

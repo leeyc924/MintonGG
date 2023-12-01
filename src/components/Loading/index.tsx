@@ -1,3 +1,5 @@
+'use client';
+
 const Loading = () => {
   return <div>...loading</div>;
 };
