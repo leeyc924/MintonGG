@@ -5,10 +5,10 @@ import { editUserInfo, removeUser, getUserDetail } from '@api';
 import { FailureResponse, UserDetailResponse } from '@types';
 import { Loading } from '@components';
 import { parseToNumber } from '@utils';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import dayjs from 'dayjs';
 
-const Edit = () => {
+const Detail = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const id = useMemo(() => parseToNumber(searchParams.get('id')), [searchParams]);
@@ -67,6 +67,12 @@ const Edit = () => {
     [data?.userInfo?.id],
   );
 
+  const onError = useCallback<SubmitErrorHandler<UserDetailResponse['userInfo']>>(error => {
+    if (error['join_dt']) {
+      alert('YYYY.MM.DD 형식으로 입력해주세요');
+    }
+  }, []);
+
   const handleRemove = useCallback(async () => {
     try {
       if (!data?.userInfo.id) {
@@ -87,18 +93,18 @@ const Edit = () => {
       {isLoading ? (
         <Loading />
       ) : isSuccess ? (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit, onError)}>
           <div className="flex gap-2">
             <label htmlFor="name">이름</label>
-            <input id="name" {...register('name')} />
+            <input id="name" {...register('name', { required: '이름을 입력해 주세요' })} />
           </div>
           <div className="flex gap-2">
             <label htmlFor="age">나이</label>
-            <input id="age" {...register('age')} />
+            <input id="age" {...register('age', { required: '나이를 입력해 주세요', maxLength: 4 })} />
           </div>
           <div className="flex gap-2">
             <label htmlFor="address">지역</label>
-            <input id="address" {...register('address')} />
+            <input id="address" {...register('address', { required: '지역을 입력해 주세요' })} />
           </div>
           <div className="flex gap-2">
             <label>성별</label>
@@ -113,7 +119,12 @@ const Edit = () => {
           </div>
           <div className="flex gap-2">
             <label>가입일</label>
-            <input {...register('join_dt')} />
+            <input
+              {...register('join_dt', {
+                required: '가입일을 입력해 주세요',
+                pattern: /^\d{4}\.\d{2}\.\d{2}$/gi,
+              })}
+            />
           </div>
           <div className="flex gap-2">
             <button type="submit" className="bg-tier-2">
@@ -131,4 +142,4 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+export default Detail;

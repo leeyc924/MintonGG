@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { FailureResponse } from '@types';
 import { Link } from 'react-router-dom';
 
-const User = () => {
+const UserList = () => {
   const { data, isLoading, error } = useQuery<Awaited<ReturnType<typeof getUserList>>, FailureResponse>({
     queryKey: ['users'],
     queryFn: getUserList,
@@ -34,13 +34,13 @@ const User = () => {
           <Typography fontSize="sm">{error.message}</Typography>
         ) : (
           data?.userList?.map((user, index) => (
-            <Link key={user.id} className="flex w-full py-2" to={`/user/edit?id=${user.id}`}>
+            <Link key={user.id} className="flex w-full py-2" to={`/user/detail?id=${user.id}`}>
               <div className="text-center shrink-0 px-2 basis-8">
                 <Typography>{index + 1}</Typography>
               </div>
               <div className="flex-1 text-center">
                 <Typography>
-                  {user.name}/{user.age.slice(2, 4)}/{user.address}
+                  {user.name}/{user.age.slice(2, 4)}/{user.address}/{user.gender === 'F' ? '여' : '남'}
                 </Typography>
               </div>
               <div className="text-center shrink-0 px-2 basis-20">
@@ -57,4 +57,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default UserList;

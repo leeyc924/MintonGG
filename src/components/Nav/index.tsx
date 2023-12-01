@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { MdHome as MainIcon } from 'react-icons/md';
 import { FaUsers as UserIcon } from 'react-icons/fa';
@@ -10,7 +9,7 @@ const Nav = () => {
     <div className="w-full h-10 border-t-1 border-solid">
       <ul className="flex h-full">
         <CustomLink pathname="/main" title="메인" Icon={MainIcon} />
-        <CustomLink pathname="/user" title="유저" Icon={UserIcon} />
+        <CustomLink pathname="/user/list" title="유저" Icon={UserIcon} />
         <CustomLink pathname="/tier" title="티어" Icon={TierIcon} />
       </ul>
     </div>
