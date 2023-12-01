@@ -2,28 +2,36 @@ import { useCallback } from 'react';
 import dayjs from 'dayjs';
 import { addUser, getUserList } from '@api';
 import { Typography } from '@components';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { FailureResponse } from '@types';
 import { Link } from 'react-router-dom';
 import { FaUserPlus as AddIcon } from 'react-icons/fa';
 
 const UserList = () => {
-  const { data, isLoading, error, refetch } = useQuery<Awaited<ReturnType<typeof getUserList>>, FailureResponse>({
+  const { data, isLoading, error } = useQuery<Awaited<ReturnType<typeof getUserList>>, FailureResponse>({
     queryKey: ['users'],
     queryFn: getUserList,
     retry: false,
   });
-
+  const queryClient = useQueryClient();
+  const { mutateAsync, isPending } = useMutation({ mutationFn: addUser });
   const handleAddUser = useCallback(async () => {
     try {
-      await addUser({ address: '영등포', age: '2004', gender: 'M', join_dt: dayjs().toISOString(), name: '홍길동' });
-      refetch();
+      await mutateAsync({
+        address: '영등포',
+        age: '2004',
+        gender: 'M',
+        join_dt: dayjs().toISOString(),
+        name: '홍길동',
+      });
+      await queryClient.refetchQueries({ queryKey: ['users'], type: 'active' });
+
       alert('유저가 추가되었습니다');
     } catch (error) {
       console.log(error);
       alert('유저 추가에 실패햇습니다');
     }
-  }, [refetch]);
+  }, [mutateAsync, queryClient]);
 
   return (
     <div className="relative flex-1 flex flex-col">
@@ -73,6 +81,7 @@ const UserList = () => {
       >
         <AddIcon size={24} />
       </button>
+      {isPending && <div className="fixed z-30 bg-tier-0 left-0 bottom-0"></div>}
     </div>
   );
 };
