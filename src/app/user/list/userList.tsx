@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import Link from 'next/link';
-import { Typography } from '@components';
+import Typography from '@mui/material/Typography';
 import { UserListResponse } from '@types';
 
 interface UserListProps {

@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import './reset.css';
-import './tailwind.css';
+import Box from '@mui/material/Box';
 import { Nav } from '@components';
+import LocalizationProvider from './LocalizationProvider';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -38,12 +39,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko">
       <body>
-        <div className="flex flex-col h-full">
-          <div className="flex-1 overflow-y-auto overflow-x-hidden">{children}</div>
-          <div className="shrink-0">
-            <Nav />
-          </div>
-        </div>
+        <LocalizationProvider>
+          <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+            <Box sx={{ flex: 1, overflowY: 'auto', overflowX: 'hidden' }}>{children}</Box>
+            <Box sx={{ flexShrink: 0, width: '100%' }}>
+              <Nav />
+            </Box>
+          </Box>
+        </LocalizationProvider>
       </body>
     </html>
   );

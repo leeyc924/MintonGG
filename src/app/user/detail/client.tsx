@@ -1,32 +1,47 @@
 'use client';
 
 import { useCallback } from 'react';
-import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import dayjs from 'dayjs';
-import { FaUserCircle as ProfileIcon, FaUserEdit as EditIcon } from 'react-icons/fa';
-// import { HiUserRemove as RemoveIcon } from 'react-icons/hi';
-import { UserDetailResponse } from '@types';
+import dayjs, { Dayjs } from 'dayjs';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import FormLabel from '@mui/material/FormLabel';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
+import { DateField } from '@mui/x-date-pickers/DateField';
+import FormControl from '@mui/material/FormControl';
 import { editUser, removeUser } from '@api-client';
-import { Typography } from '@components';
+import { Gender, UserDetailResponse } from '@types';
 
 interface UseDetailClientProps {
   data: UserDetailResponse;
 }
 
+interface FieldValue {
+  id: number;
+  name: string;
+  age: string;
+  gender: Gender;
+  address: string;
+  join_dt: Dayjs;
+}
+
 const UserDetailPage = ({ data: { userInfo } }: UseDetailClientProps) => {
   const router = useRouter();
-  const { register, handleSubmit } = useForm<UserDetailResponse['userInfo']>({
+  const { handleSubmit, control } = useForm<FieldValue>({
     defaultValues: {
       ...userInfo,
-      join_dt: dayjs(userInfo.join_dt).format('YYYY.MM.DD'),
+      join_dt: dayjs(userInfo.join_dt),
     },
   });
 
-  const onSubmit: SubmitHandler<UserDetailResponse['userInfo']> = useCallback(
-    async ({ address, age, gender, join_dt, name }) => {
+  const onSubmit: SubmitHandler<FieldValue> = useCallback(
+    async ({ id, address, age, gender, join_dt, name }) => {
       try {
-        if (!userInfo?.id) {
+        if (!id) {
           return;
         }
 
@@ -34,7 +49,7 @@ const UserDetailPage = ({ data: { userInfo } }: UseDetailClientProps) => {
           address,
           age,
           gender,
-          join_dt,
+          join_dt: dayjs(join_dt).format('YYYY.MM.DD'),
           name,
           id: userInfo?.id,
         });
@@ -47,9 +62,9 @@ const UserDetailPage = ({ data: { userInfo } }: UseDetailClientProps) => {
     [userInfo?.id],
   );
 
-  const onError = useCallback<SubmitErrorHandler<UserDetailResponse['userInfo']>>(error => {
-    if (error['join_dt']) {
-      alert('YYYY.MM.DD 형식으로 입력해주세요');
+  const onError = useCallback<SubmitErrorHandler<FieldValue>>(error => {
+    if (error['age']) {
+      alert('YYYY 형식으로 입력해주세요');
     }
   }, []);
 
@@ -68,69 +83,101 @@ const UserDetailPage = ({ data: { userInfo } }: UseDetailClientProps) => {
   }, [router, userInfo?.id]);
 
   return (
-    <div className="flex flex-col h-full">
-      <form className="flex flex-col mx-auto h-full w-96 mt-10 gap-4" onSubmit={handleSubmit(onSubmit, onError)}>
-        <div className="flex mx-auto">
-          <ProfileIcon color="#333" size={128} />
-        </div>
-        <div className="flex flex-col mx-auto">
-          <div className="flex gap-2">
-            <div className="basis-12 shrink-0">
-              <Typography fontSize="base">이름</Typography>
-            </div>
-            <input className="text-base flex-1" {...register('name', { required: '이름을 입력해 주세요' })} />
-          </div>
-          <div className="flex gap-2">
-            <div className="basis-12 shrink-0">
-              <Typography fontSize="base">나이</Typography>
-            </div>
-            <input className="text-base" {...register('age', { required: '나이를 입력해 주세요', maxLength: 4 })} />
-          </div>
-          <div className="flex gap-2">
-            <div className="basis-12 shrink-0">
-              <Typography fontSize="base">지역</Typography>
-            </div>
-            <input className="text-base" {...register('address', { required: '지역을 입력해 주세요' })} />
-          </div>
-          <div className="flex gap-2">
-            <div className="basis-12 shrink-0">
-              <Typography fontSize="base">성별</Typography>
-            </div>
-            <div className="flex gap-1">
-              <Typography fontSize="base">
-                남
-                <input className="text-base" type="radio" value="M" {...register('gender')} />
-              </Typography>
-              <Typography fontSize="base">
-                여
-                <input className="text-base" type="radio" value="F" {...register('gender')} />
-              </Typography>
-            </div>
-          </div>
-          <div className="flex gap-2">
-            <div className="basis-12 shrink-0">
-              <Typography fontSize="base">가입일</Typography>
-            </div>
-            <input
-              className="text-base"
-              {...register('join_dt', {
-                required: '가입일을 입력해 주세요',
-                pattern: /^\d{4}\.\d{2}\.\d{2}$/gi,
-              })}
+    <Box component="form" onSubmit={handleSubmit(onSubmit, onError)} noValidate sx={{ mt: 1 }}>
+      <Controller
+        control={control}
+        name="name"
+        rules={{ required: '이름을 입력해 주세요' }}
+        render={({ field: { onChange, value, name, ref } }) => (
+          <div>
+            <FormLabel>이름</FormLabel>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              onChange={onChange}
+              value={value}
+              name={name}
+              inputRef={ref}
             />
           </div>
-          <div className="flex ml-auto">
-            <div className="flex gap-1 ml-auto">
-              <button type="submit">수정{/* <EditIcon size={24} color="blue" /> */}</button>
-              <button type="button" onClick={handleRemove}>
-                삭제
-                {/* <RemoveIcon size={24} color="red" /> */}
-              </button>
-            </div>
+        )}
+      />
+      <Controller
+        control={control}
+        name="age"
+        rules={{ required: '나이를 입력해 주세요', maxLength: 4 }}
+        render={({ field: { onChange, value, name, ref } }) => (
+          <div>
+            <FormLabel>나이</FormLabel>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              onChange={onChange}
+              value={value}
+              name={name}
+              inputRef={ref}
+            />
           </div>
-        </div>
-      </form>
-    </div>
+        )}
+      />
+      <Controller
+        control={control}
+        name="address"
+        rules={{ required: '지역을 입력해 주세요' }}
+        render={({ field: { onChange, value, name, ref } }) => (
+          <div>
+            <FormLabel>지역</FormLabel>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              onChange={onChange}
+              value={value}
+              name={name}
+              inputRef={ref}
+            />
+          </div>
+        )}
+      />
+      <Controller
+        control={control}
+        name="gender"
+        rules={{ required: '지역을 입력해 주세요' }}
+        render={({ field: { onChange, value, name } }) => (
+          <div>
+            <FormLabel>성별</FormLabel>
+            <RadioGroup row name={name} value={value} onChange={onChange}>
+              <FormControlLabel value="M" control={<Radio />} label="남" />
+              <FormControlLabel value="F" control={<Radio />} label="여" />
+            </RadioGroup>
+          </div>
+        )}
+      />
+      <Controller
+        control={control}
+        name="join_dt"
+        rules={{
+          required: '가입일을 입력해 주세요',
+          pattern: /^\d{4}\.\d{2}\.\d{2}$/gi,
+        }}
+        render={({ field: { onChange, value } }) => (
+          <FormControl fullWidth>
+            <FormLabel>가입일</FormLabel>
+            <DateField value={value} onChange={newValue => onChange(newValue)} format="YYYY.MM.DD" fullWidth />
+          </FormControl>
+        )}
+      />
+      <Box display="flex" gap={2} justifyContent={'right'}>
+        <Button color="error" variant="contained" sx={{ mt: 3, mb: 2 }} onClick={handleRemove}>
+          삭제
+        </Button>
+        <Button type="submit" color="primary" variant="contained" sx={{ mt: 3, mb: 2 }}>
+          수정
+        </Button>
+      </Box>
+    </Box>
   );
 };
 

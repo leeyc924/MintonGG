@@ -2,11 +2,14 @@
 
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation';
-import { FaUserPlus as AddIcon, FaRegCopy as CopyIcon } from 'react-icons/fa';
+import CopyIcon from '@mui/icons-material/ContentCopyRounded';
+import AddIcon from '@mui/icons-material/PersonAddAltRounded';
+import TierIcon from '@mui/icons-material/LeaderboardRounded';
 import { useCallback, useMemo } from 'react';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import { addUser } from '@api-client';
 import { UserListResponse } from '@types';
-import { Typography } from '@components';
 
 interface ToolProps {
   data: UserListResponse;
@@ -47,19 +50,20 @@ const Tool = ({ data }: ToolProps) => {
   }, [router]);
 
   return (
-    <div className="flex justify-between px-3 py-2 border-b-1 border-solid border-tier-0">
-      <div>
-        <Typography tag="h1">유저목록</Typography>
-      </div>
-      <div className="flex ml-auto gap-2">
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Typography component="h1">유저목록</Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, ml: 'auto' }}>
+        <button onClick={() => router.push('/tier')}>
+          <TierIcon />
+        </button>
         <button onClick={handleCopyUser}>
-          <CopyIcon size={24} />
+          <CopyIcon />
         </button>
         <button onClick={handleAddUser}>
-          <AddIcon size={24} />
+          <AddIcon />
         </button>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 
