@@ -1,8 +1,8 @@
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import { parseToNumber } from '@utils-client';
 import { getUserDetail } from '@api-server';
-import { parseToNumber } from '@utils';
 import Client from './client';
 
 const UserDetailPage = async ({ searchParams }: { searchParams: { id: string } }) => {

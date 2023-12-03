@@ -1,7 +1,7 @@
 'use client';
 
 import { UserAddRequest, UserEditRequest } from '@types';
-import { fetchClient } from '@utils';
+import { fetchClient } from '@utils-client';
 
 export const addUser = async (body: UserAddRequest) => {
   await fetchClient.post<boolean>(`/user/add`, { body: JSON.stringify(body) });

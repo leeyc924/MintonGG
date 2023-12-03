@@ -13,6 +13,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import { DateField } from '@mui/x-date-pickers/DateField';
 import FormControl from '@mui/material/FormControl';
+import { toast } from 'react-toastify';
 import { editUser, removeUser } from '@api-client';
 import { Gender, UserDetailResponse } from '@types';
 
@@ -38,7 +39,7 @@ const UserDetailPage = ({ data: { userInfo } }: UseDetailClientProps) => {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValue> = useCallback(
+  const onSubmit = useCallback<SubmitHandler<FieldValue>>(
     async ({ id, address, age, gender, join_dt, name }) => {
       try {
         if (!id) {
@@ -53,18 +54,19 @@ const UserDetailPage = ({ data: { userInfo } }: UseDetailClientProps) => {
           name,
           id: userInfo?.id,
         });
-        alert('수정 성공');
+        toast('수정에 성공했습니다', { type: 'success' });
+        router.refresh();
       } catch (error) {
         console.log(`error`, error);
-        alert('수정 실패');
+        toast('수정에 실패했습니다', { type: 'error' });
       }
     },
-    [userInfo?.id],
+    [router, userInfo?.id],
   );
 
   const onError = useCallback<SubmitErrorHandler<FieldValue>>(error => {
     if (error['age']) {
-      alert('YYYY 형식으로 입력해주세요');
+      toast('YYYY 형식으로 입력해주세요', { type: 'error' });
     }
   }, []);
 
@@ -74,11 +76,12 @@ const UserDetailPage = ({ data: { userInfo } }: UseDetailClientProps) => {
         return;
       }
       await removeUser({ id: userInfo?.id });
-      alert('삭제 성공');
+      toast('삭제에 성공했습니다', { type: 'success' });
       router.push('/user/list');
+      router.refresh();
     } catch (error) {
       console.log(`error`, error);
-      alert('삭제 실패');
+      toast('삭제에 실패했습니다', { type: 'error' });
     }
   }, [router, userInfo?.id]);
 

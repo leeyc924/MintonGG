@@ -8,16 +8,17 @@ import TierIcon from '@mui/icons-material/LeaderboardRounded';
 import { useCallback, useMemo } from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import { toast } from 'react-toastify';
 import { addUser } from '@api-client';
-import { UserListResponse } from '@types';
+import { Session, UserListResponse } from '@types';
 
 interface ToolProps {
   data: UserListResponse;
+  session: Session | null;
 }
 
-const Tool = ({ data }: ToolProps) => {
+const Tool = ({ data, session }: ToolProps) => {
   const router = useRouter();
-
   const copyUserList = useMemo(
     () =>
       data.userList.reduce((copyText, cur) => {
@@ -29,7 +30,6 @@ const Tool = ({ data }: ToolProps) => {
 
   const handleCopyUser = useCallback(async () => {
     await navigator.clipboard.writeText(copyUserList);
-    alert('유저목록이 클립보드에 복사되었습니다');
   }, [copyUserList]);
 
   const handleAddUser = useCallback(async () => {
@@ -41,11 +41,11 @@ const Tool = ({ data }: ToolProps) => {
         join_dt: dayjs().toISOString(),
         name: '홍길동',
       });
-      alert('유저가 추가되었습니다');
+      toast('유저가 추가되었습니다', { type: 'success' });
       router.refresh();
     } catch (error) {
       console.log(error);
-      alert('유저 추가에 실패햇습니다');
+      toast('유저 추가에 실패햇습니다', { type: 'error' });
     }
   }, [router]);
 
@@ -53,9 +53,11 @@ const Tool = ({ data }: ToolProps) => {
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Typography component="h1">유저목록</Typography>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, ml: 'auto' }}>
-        <button onClick={() => router.push('/tier')}>
-          <TierIcon />
-        </button>
+        {session?.auth === 'ADMIN' && (
+          <button onClick={() => router.push('/tier')}>
+            <TierIcon />
+          </button>
+        )}
         <button onClick={handleCopyUser}>
           <CopyIcon />
         </button>

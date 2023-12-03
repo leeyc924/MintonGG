@@ -8,17 +8,18 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import Link from 'next/link';
 import dayjs from 'dayjs';
-import Paper from '@mui/material/Paper';
 import { getUserList } from '@api-server';
+import { getSession } from '@utils-server';
 import Tool from './tool';
 
 const UserListPage = async () => {
   const data = await getUserList();
+  const session = getSession();
 
   return (
     <Container sx={{ py: 2 }}>
       <TableContainer>
-        <Tool data={data} />
+        <Tool data={data} session={session} />
         <Table>
           <TableHead>
             <TableRow>

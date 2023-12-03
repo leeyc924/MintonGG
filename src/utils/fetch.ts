@@ -22,7 +22,7 @@ type RequestHeaders = Partial<{ Cookie?: string; 'User-Agent'?: string; 'x-forwa
 
 const methods: Methods[] = ['get', 'post'];
 
-const formatHeader = <T extends Headers>(headers: T): RequestHeaders | undefined => {
+export const formatHeader = <T extends Headers>(headers: T): RequestHeaders | undefined => {
   if (!headers) {
     return undefined;
   }
@@ -62,11 +62,9 @@ export const fetchClient = (() => {
     const url = `${baseUrl}${path}`;
     const response = await fetch(url, options);
     const status = response.status;
-
     if (!response.ok) {
       const errorData = await response.json();
       const message = errorData.message;
-
       throw handleCustomError(status, message);
     }
 

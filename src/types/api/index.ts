@@ -1,5 +1,6 @@
 export * from './users';
 export * from './game';
+export * from './auth';
 
 export interface FailureResponse {
   timestamp: number;

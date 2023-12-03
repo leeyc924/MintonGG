@@ -3,41 +3,31 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { FormEventHandler, useCallback } from 'react';
+import { useFormState, useFormStatus } from 'react-dom';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import submit from './action';
 
 const LoginForm = () => {
-  const handleSubmit = useCallback<FormEventHandler<HTMLFormElement>>(e => {
-    e.preventDefault();
-    const data = new FormData(e.currentTarget);
+  const router = useRouter();
+  const [state, formAction] = useFormState(submit, { message: '', result: '' });
 
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  }, []);
+  useEffect(() => {
+    if (state?.result === 'success') {
+      toast('로그인에 성공했습니다', { type: 'success' });
+      router.replace('/');
+    }
+
+    if (state?.result === 'error') {
+      toast(state.message, { type: 'error' });
+    }
+  }, [router, state?.message, state?.result]);
 
   return (
-    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-      <TextField
-        margin="normal"
-        required
-        fullWidth
-        label="Code"
-        id="email"
-        name="email"
-        autoFocus
-        autoComplete="email"
-      />
-      <TextField
-        margin="normal"
-        required
-        fullWidth
-        label="Password"
-        id="password"
-        name="password"
-        type="password"
-        autoComplete="current-password"
-      />
+    <Box component="form" action={formAction} noValidate sx={{ mt: 1 }}>
+      <TextField margin="normal" required fullWidth label="아이디" id="id" name="id" autoFocus />
+      <TextField margin="normal" required fullWidth label="패스워드" id="password" name="password" type="password" />
       <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
         로그인
       </Button>

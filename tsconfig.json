@@ -27,9 +27,10 @@
       "@constants": ["./src/constants/index.ts"],
       "@layouts": ["./src/layouts/index.ts"],
       "@pages": ["./src/pages/index.ts"],
-      "@utils": ["./src/utils/index.ts"]
+      "@utils-client": ["./src/utils/index.client.ts"],
+      "@utils-server": ["./src/utils/index.server.ts"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/api/s"],
   "exclude": ["node_modules"]
 }
