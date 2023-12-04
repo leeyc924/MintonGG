@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import './reset.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Box from '@mui/material/Box';
@@ -15,7 +15,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: 'Minton GG',
   description: 'minton gg pwa',
-  manifest: '/manifest.json',
+  manifest: 'manifest.json',
   icons: {
     other: [
       {

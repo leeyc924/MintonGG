@@ -13,7 +13,6 @@ export async function middleware(request: NextRequest) {
 
     if (authResponse.ok) {
       const data = await authResponse.json();
-      console.log(`data`, data);
       const session = encodeURIComponent(JSON.stringify(data));
       requestHeader.set('session', session);
 
@@ -35,5 +34,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|login).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|login|manifest.json).*)'],
 };
