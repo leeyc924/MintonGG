@@ -3,7 +3,7 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useFormState } from 'react-dom';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
@@ -16,9 +16,6 @@ const LoginForm = () => {
   useEffect(() => {
     if (state?.result === 'success') {
       toast('로그인에 성공했습니다', { type: 'success' });
-      setTimeout(() => {
-        router.replace('/');
-      }, 500);
     }
 
     if (state?.result === 'error') {
