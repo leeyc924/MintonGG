@@ -16,7 +16,9 @@ const LoginForm = () => {
   useEffect(() => {
     if (state?.result === 'success') {
       toast('로그인에 성공했습니다', { type: 'success' });
-      router.replace('/');
+      setTimeout(() => {
+        router.replace('/');
+      }, 500);
     }
 
     if (state?.result === 'error') {
