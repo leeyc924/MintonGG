@@ -1,7 +1,7 @@
 {
   "name": "MintonGG",
   "short_name": "민턴GG",
-  "start_url": "https://courageous-sundae-54be66.netlify.app/user",
+  "start_url": "https://mintongg.netlify.netlify.app/user",
   "display": "standalone",
   "background_color": "#FFFFFF",
   "theme_color": "#000000",
