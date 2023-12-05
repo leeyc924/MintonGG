@@ -5,6 +5,7 @@ export async function middleware(request: NextRequest) {
   try {
     const requestHeader = new Headers(request.headers);
     const headerInstance = formatHeader(requestHeader);
+    console.log(`request`, request.url);
     const authResponse = await fetch(`${process.env['NEXT_PUBLIC_API_BASE_URL']}/auth/check`, {
       method: 'post',
       credentials: 'include',
@@ -34,5 +35,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|login|manifest.json).*)'],
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|icons/*|login|manifest.json|sw.js|workbox-*).*)'],
 };

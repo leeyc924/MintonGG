@@ -1,7 +1,7 @@
 {
   "name": "MintonGG",
   "short_name": "민턴GG",
-  "start_url": "https://mintongg.netlify.netlify.app/user",
+  "start_url": "https://mintongg.netlify.netlify.app",
   "display": "standalone",
   "background_color": "#FFFFFF",
   "theme_color": "#000000",
