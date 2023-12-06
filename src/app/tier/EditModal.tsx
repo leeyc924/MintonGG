@@ -26,10 +26,15 @@ const EditModal = ({ isOpen, closeModal, data }: EditModalProps) => {
   const router = useRouter();
 
   const handleEditTier = useCallback(async () => {
-    await editTier({ id: userId, tier });
-    router.refresh();
-    toast('티어를 수정하였습니다', { type: 'success' });
-    closeModal();
+    try {
+      await editTier({ id: userId, tier });
+      router.refresh();
+      toast('티어를 수정하였습니다', { type: 'success' });
+      closeModal();
+    } catch (error) {
+      console.log(error);
+      toast('티어 수정에 실패하였습니다', { type: 'error' });
+    }
   }, [closeModal, router, tier, userId]);
 
   const handleChangeName = useCallback<ChangeEventHandler<HTMLSelectElement>>(
