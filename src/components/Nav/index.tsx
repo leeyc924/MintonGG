@@ -11,7 +11,7 @@ const Nav = () => {
   const pathname = usePathname();
 
   return pathname !== '/login' ? (
-    <BottomNavigation>
+    <BottomNavigation sx={{ borderTop: '1px solid #ddd' }}>
       <BottomNavigationAction component={Link} href="/" icon={<MainIcon />} />
       <BottomNavigationAction component={Link} href="/user/list" icon={<UserIcon />} />
       <BottomNavigationAction component={Link} href="/game" icon={<CalendarIcon />} />

@@ -10,7 +10,6 @@ export const addUser = async (body: UserAddRequest) => {
 
 export const editUser = async (body: UserEditRequest) => {
   const response = await fetchClient.post('/user/edit', { body: JSON.stringify(body) });
-  console.log(`response `, response);
   return response.data;
 };
 

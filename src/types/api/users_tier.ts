@@ -41,3 +41,8 @@ export interface UserTierListResponse {
     tier: UserTier['tier'];
   }[];
 }
+
+export interface UserTierEditRequest {
+  id: UserTier['id'];
+  tier: UserTier['tier'];
+}
