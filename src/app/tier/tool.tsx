@@ -32,9 +32,9 @@ const Tool = ({ data }: ToolProps) => {
         .reduce((copyText, cur, index, arr) => {
           return (
             copyText +
-            '\n' +
+            '\n\n' +
             `${index === arr.length - 1 ? '알수없음' : `${index + 1}티어`}` +
-            ': ' +
+            ':' +
             '\n' +
             cur.join('\n')
           );
