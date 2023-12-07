@@ -42,14 +42,12 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="ko">
       <body>
-        <LocalizationProvider>
-          <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-            <Box sx={{ flex: 1, overflowY: 'auto', overflowX: 'hidden' }}>{props.children}</Box>
-            <Box sx={{ flexShrink: 0, width: '100%' }}>
-              <Nav />
-            </Box>
+        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+          <Box sx={{ flex: 1, overflowY: 'auto', overflowX: 'hidden' }}>{props.children}</Box>
+          <Box sx={{ flexShrink: 0, width: '100%' }}>
+            <Nav />
           </Box>
-        </LocalizationProvider>
+        </Box>
         <ToastContainer autoClose={3000} position="bottom-right" />
       </body>
     </html>

@@ -1,11 +1,7 @@
 import Client from './client';
 
 const GamePage = () => {
-  return (
-    <div>
-      <Client />
-    </div>
-  );
+  return <Client />;
 };
 
 export default GamePage;
