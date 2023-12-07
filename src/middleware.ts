@@ -5,7 +5,6 @@ export async function middleware(request: NextRequest) {
   try {
     const requestHeader = new Headers(request.headers);
     const headerInstance = formatHeader(requestHeader);
-    console.log(`request`, request.url);
     const authResponse = await fetch(`${process.env['NEXT_PUBLIC_API_BASE_URL']}/auth/check`, {
       method: 'post',
       credentials: 'include',
