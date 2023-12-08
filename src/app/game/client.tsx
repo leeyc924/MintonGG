@@ -4,11 +4,12 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import dayjs, { Dayjs } from 'dayjs';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import Button from '@mui/material/Button';
 import LeftIcon from '@mui/icons-material/ArrowBackIosRounded';
 import RightIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import { lunar } from '@utils-client';
+import EditModal from './EditModal';
 
 export interface GameClientProps {}
 interface DateItem {
@@ -22,6 +23,10 @@ interface DateItem {
 
 const GameClient = () => {
   const [currentViewDate, setCurrentViewDate] = useState<Dayjs>(dayjs());
+  const [modalState, setModalState] = useState({
+    date: dayjs(),
+    isOpen: false,
+  });
 
   const dayRowList = useMemo(() => {
     const dateList: DateItem[][] = [[]];
@@ -95,14 +100,14 @@ const GameClient = () => {
         isNone: false,
       });
 
-      if (week === 6) {
+      if (week === 6 && day !== endDay) {
         dateList.push([]);
         weekIndex++;
       }
     }
 
     // 마지막주 토요일까지 빈칸
-    for (let week = endWeek; week < 6; week++) {
+    for (let week = endWeek + 1; week < 7; week++) {
       dateList[weekIndex].push({
         year: 0,
         month: 0,
@@ -115,6 +120,14 @@ const GameClient = () => {
 
     return dateList;
   }, [currentViewDate]);
+
+  const handleOpenModal = useCallback((date: Dayjs) => {
+    setModalState({ isOpen: true, date });
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setModalState({ isOpen: false, date: dayjs() });
+  }, []);
 
   return (
     <Container sx={{ py: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -152,9 +165,13 @@ const GameClient = () => {
                   p: '4px 8px',
                   borderRight: '1px solid #ddd',
                   borderLeft: j === 0 ? '1px solid #ddd' : 'none',
+                  ...(day.isNone && { background: '#eee' }),
                 }}
               >
-                <button disabled={day.isNone}>
+                <button
+                  disabled={day.isNone}
+                  onClick={() => handleOpenModal(dayjs(`${day.year}-${day.month}-${day.day}`))}
+                >
                   <Typography
                     variant="caption"
                     color={day.isHoliday || day.week === 0 ? 'red' : day.week === 6 ? 'blue' : '#333'}
@@ -167,6 +184,9 @@ const GameClient = () => {
           </Box>
         ))}
       </Box>
+      {/* {modalState.isOpen && (
+        <EditModal isOpen={modalState.isOpen} closeModal={handleCloseModal} date={modalState.date} />
+      )} */}
     </Container>
   );
 };
