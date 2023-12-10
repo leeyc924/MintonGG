@@ -1,3 +1,5 @@
+import { User } from '.';
+
 /**
  * 0 구로 누리
  * 1 영등포
@@ -39,4 +41,23 @@ export interface Game {
    * TODO) ttl 3개월 db에 기능있는지 확인
    * */
   ttl?: string;
+}
+
+export interface GameDetailRequest {
+  playDt: string;
+}
+
+export interface GameDetailResponse {
+  userList: {
+    id: User['id'];
+    userFullName: string;
+  }[];
+  gameList: {
+    playDt: string;
+    playPart: string;
+    userList: {
+      id: User['id'];
+      userFullName: string;
+    }[];
+  }[];
 }

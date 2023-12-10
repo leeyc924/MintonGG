@@ -8,8 +8,8 @@ import { useCallback, useMemo, useState } from 'react';
 import Button from '@mui/material/Button';
 import LeftIcon from '@mui/icons-material/ArrowBackIosRounded';
 import RightIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import { useRouter } from 'next/navigation';
 import { lunar } from '@utils-client';
-import EditModal from './EditModal';
 
 export interface GameClientProps {}
 interface DateItem {
@@ -17,16 +17,16 @@ interface DateItem {
   month: number;
   day: number;
   week: number;
+  dayjs: Dayjs;
   isHoliday: boolean;
   isNone: boolean;
 }
 
 const GameClient = () => {
+  const router = useRouter();
+
   const [currentViewDate, setCurrentViewDate] = useState<Dayjs>(dayjs());
-  const [modalState, setModalState] = useState({
-    date: dayjs(),
-    isOpen: false,
-  });
+  const [selectedDay, setSelectedDay] = useState<Dayjs | null>(null);
 
   const dayRowList = useMemo(() => {
     const dateList: DateItem[][] = [[]];
@@ -44,6 +44,7 @@ const GameClient = () => {
         year: 0,
         month: 0,
         day: 0,
+        dayjs: dayjs(`0000-00-00`),
         week,
         isHoliday: false,
         isNone: true,
@@ -95,6 +96,7 @@ const GameClient = () => {
         year,
         month,
         day,
+        dayjs: dayjs(`${year}-${month}-${day}`),
         week,
         isHoliday,
         isNone: false,
@@ -112,6 +114,7 @@ const GameClient = () => {
         year: 0,
         month: 0,
         day: 0,
+        dayjs: dayjs(`0000-00-00`),
         week,
         isHoliday: false,
         isNone: true,
@@ -121,13 +124,17 @@ const GameClient = () => {
     return dateList;
   }, [currentViewDate]);
 
-  const handleOpenModal = useCallback((date: Dayjs) => {
-    setModalState({ isOpen: true, date });
-  }, []);
+  const handleClickDay = useCallback(
+    (dayjs: Dayjs) => {
+      if (selectedDay?.isSame(dayjs)) {
+        router.push(`/game/detail?playDt=${dayjs.format('YYYY-MM-DD')}`);
+        return;
+      }
 
-  const handleCloseModal = useCallback(() => {
-    setModalState({ isOpen: false, date: dayjs() });
-  }, []);
+      setSelectedDay(dayjs);
+    },
+    [router, selectedDay],
+  );
 
   return (
     <Container sx={{ py: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -162,31 +169,31 @@ const GameClient = () => {
                 key={`${i}-${j}`}
                 sx={{
                   flex: 1,
+                  position: 'relative',
                   p: '4px 8px',
                   borderRight: '1px solid #ddd',
                   borderLeft: j === 0 ? '1px solid #ddd' : 'none',
                   ...(day.isNone && { background: '#eee' }),
+                  ...(day.dayjs.isSame(selectedDay) && { boxShadow: '0px 0px 2px 1px blue inset' }),
                 }}
+                onClick={() => handleClickDay(day.dayjs)}
+                component="button"
+                disabled={day.isNone}
               >
-                <button
-                  disabled={day.isNone}
-                  onClick={() => handleOpenModal(dayjs(`${day.year}-${day.month}-${day.day}`))}
+                <Typography
+                  position="absolute"
+                  left="8px"
+                  top="4px"
+                  variant="caption"
+                  color={day.isHoliday || day.week === 0 ? 'red' : day.week === 6 ? 'blue' : '#333'}
                 >
-                  <Typography
-                    variant="caption"
-                    color={day.isHoliday || day.week === 0 ? 'red' : day.week === 6 ? 'blue' : '#333'}
-                  >
-                    {!day.isNone && day.day}
-                  </Typography>
-                </button>
+                  {!day.isNone && day.day}
+                </Typography>
               </Box>
             ))}
           </Box>
         ))}
       </Box>
-      {/* {modalState.isOpen && (
-        <EditModal isOpen={modalState.isOpen} closeModal={handleCloseModal} date={modalState.date} />
-      )} */}
     </Container>
   );
 };
