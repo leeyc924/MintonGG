@@ -22,6 +22,8 @@ interface DateItem {
   isNone: boolean;
 }
 
+const TODAY = dayjs(dayjs().format('YYYY-MM-DD'));
+
 const GameClient = () => {
   const router = useRouter();
 
@@ -138,7 +140,14 @@ const GameClient = () => {
 
   return (
     <Container sx={{ py: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          mb: 1,
+        }}
+      >
         <Button onClick={() => setCurrentViewDate(prev => prev.subtract(1, 'month'))}>
           <LeftIcon />
         </Button>
@@ -149,7 +158,13 @@ const GameClient = () => {
           <RightIcon />
         </Button>
       </Box>
-      <Box sx={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #ddd' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          borderBottom: '1px solid #ddd',
+        }}
+      >
         {['일', '월', '화', '수', '목', '금', '토'].map((text, index) => (
           <Typography
             key={text}
@@ -174,7 +189,9 @@ const GameClient = () => {
                   borderRight: '1px solid #ddd',
                   borderLeft: j === 0 ? '1px solid #ddd' : 'none',
                   ...(day.isNone && { background: '#eee' }),
-                  ...(day.dayjs.isSame(selectedDay) && { boxShadow: '0px 0px 2px 1px blue inset' }),
+                  ...(day.dayjs.isSame(selectedDay) && {
+                    boxShadow: '0px 0px 2px 1px blue inset',
+                  }),
                 }}
                 onClick={() => handleClickDay(day.dayjs)}
                 component="button"
@@ -186,6 +203,7 @@ const GameClient = () => {
                   top="4px"
                   variant="caption"
                   color={day.isHoliday || day.week === 0 ? 'red' : day.week === 6 ? 'blue' : '#333'}
+                  {...(day.dayjs.isSame(TODAY) && { sx: { background: '#333', borderRadius: '4px', color: '#fff' } })}
                 >
                   {!day.isNone && day.day}
                 </Typography>

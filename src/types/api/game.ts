@@ -54,7 +54,7 @@ export interface GameDetailResponse {
   }[];
   gameList: {
     playDt: string;
-    playPart: string;
+    playPart: number;
     userList: {
       id: User['id'];
       userFullName: string;
