@@ -22,9 +22,8 @@ interface DateItem {
   isNone: boolean;
 }
 
-const TODAY = dayjs(dayjs().format('YYYY-MM-DD'));
-
 const GameClient = () => {
+  const TODAY = useMemo(() => dayjs(dayjs().format('YYYY-MM-DD')), []);
   const router = useRouter();
 
   const [currentViewDate, setCurrentViewDate] = useState<Dayjs>(dayjs());
@@ -203,7 +202,13 @@ const GameClient = () => {
                   top="4px"
                   variant="caption"
                   color={day.isHoliday || day.week === 0 ? 'red' : day.week === 6 ? 'blue' : '#333'}
-                  {...(day.dayjs.isSame(TODAY) && { sx: { background: '#333', borderRadius: '4px', color: '#fff' } })}
+                  {...(day.dayjs.isSame(TODAY) && {
+                    sx: {
+                      background: '#333',
+                      borderRadius: '4px',
+                      color: '#fff',
+                    },
+                  })}
                 >
                   {!day.isNone && day.day}
                 </Typography>

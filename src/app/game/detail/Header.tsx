@@ -34,7 +34,7 @@ const Header = () => {
   }, [currentDate]);
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
       <Button
         onClick={() =>
           router.replace(`/game/detail?playDt=${dayjs(currentDate).subtract(1, 'day').format('YYYY-MM-DD')}`)
