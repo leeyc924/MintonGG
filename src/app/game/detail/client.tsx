@@ -52,6 +52,8 @@ const Client = ({ data }: ClientProps) => {
     setIsOpen(false);
   }, []);
 
+  const handleRemoveUser = useCallback(() => {}, []);
+
   return (
     <>
       <Box sx={{ position: 'sticky', top: 0, left: 0, zIndex: 1, background: '#fff', mb: 1 }}>
@@ -73,7 +75,7 @@ const Client = ({ data }: ClientProps) => {
                 <ListItem
                   key={user.id}
                   secondaryAction={
-                    <IconButton edge="end" aria-label="delete">
+                    <IconButton edge="end" aria-label="delete" onClick={() => handleRemoveUser()}>
                       <DeleteIcon />
                     </IconButton>
                   }
@@ -93,7 +95,15 @@ const Client = ({ data }: ClientProps) => {
       >
         <AddIcon />
       </Fab>
-      <UserAddModal isOpen={isOpen} onClose={handleCloseModal} userList={data.userList} playDt={playDt} />
+      {isOpen && (
+        <UserAddModal
+          isOpen={isOpen}
+          onClose={handleCloseModal}
+          userList={data.userList}
+          playDt={playDt}
+          playPart={tabValue}
+        />
+      )}
     </>
   );
 };
