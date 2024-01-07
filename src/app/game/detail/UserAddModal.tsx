@@ -4,16 +4,19 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { useCallback, useState } from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
+import { toast } from 'react-toastify';
 import { Modal } from '@components';
 import { GameDetailResponse } from '@types';
+import { addGame } from '@api-client';
 
 export interface UserAddModalProps {
   userList: GameDetailResponse['userList'];
   isOpen: boolean;
   onClose(): void;
+  playDt: string;
 }
 
-const UserAddModal = ({ isOpen, onClose, userList }: UserAddModalProps) => {
+const UserAddModal = ({ isOpen, onClose, userList, playDt }: UserAddModalProps) => {
   const [checkIdList, setCheckIdList] = useState<number[]>([]);
 
   const handleToggle = (value: number) => () => {
@@ -29,9 +32,14 @@ const UserAddModal = ({ isOpen, onClose, userList }: UserAddModalProps) => {
     setCheckIdList(newChecked);
   };
 
-  const handleSubmit = useCallback(() => {
-    console.log(checkIdList);
-  }, [checkIdList]);
+  const handleSubmit = useCallback(async () => {
+    try {
+      await addGame({ play_dt: playDt, userids: checkIdList, play_part: 4 });
+      onClose();
+    } catch (error) {
+      toast('추가에 실패하였습니다', { type: 'error' });
+    }
+  }, [checkIdList, onClose, playDt]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="유저추가" onSubmit={handleSubmit} submitText="추가">

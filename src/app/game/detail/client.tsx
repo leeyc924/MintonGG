@@ -23,7 +23,7 @@ const TabList = [
 
 const Client = ({ data }: ClientProps) => {
   const param = useSearchParams();
-  const playDt = param.get('playDt');
+  const playDt = param.get('playDt') as string;
   const [tabValue, setTabValue] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -51,6 +51,7 @@ const Client = ({ data }: ClientProps) => {
   const handleCloseModal = useCallback(() => {
     setIsOpen(false);
   }, []);
+
   return (
     <>
       <Box sx={{ position: 'sticky', top: 0, left: 0, zIndex: 1, background: '#fff', mb: 1 }}>
@@ -92,7 +93,7 @@ const Client = ({ data }: ClientProps) => {
       >
         <AddIcon />
       </Fab>
-      <UserAddModal isOpen={isOpen} onClose={handleCloseModal} userList={data.userList} />
+      <UserAddModal isOpen={isOpen} onClose={handleCloseModal} userList={data.userList} playDt={playDt} />
     </>
   );
 };

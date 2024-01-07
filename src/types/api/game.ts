@@ -61,3 +61,9 @@ export interface GameDetailResponse {
     }[];
   }[];
 }
+
+export interface GameAddRequest {
+  play_dt: string;
+  userids: User['id'][];
+  play_part: number;
+}
