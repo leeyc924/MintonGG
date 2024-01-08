@@ -13,6 +13,7 @@ const Header = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const currentDate = searchParams.get('playDt') || dayjs().format('YYYY-MM-DD');
+
   const week = useMemo(() => {
     const engWeek = dayjs(currentDate).format('ddd');
     switch (engWeek) {
@@ -20,11 +21,11 @@ const Header = () => {
         return '일';
       case 'Mon':
         return '월';
-      case 'Thu':
+      case 'Tue':
         return '화';
-      case 'Wen':
+      case 'Wed':
         return '수';
-      case 'The':
+      case 'Thu':
         return '목';
       case 'Fri':
         return '금';

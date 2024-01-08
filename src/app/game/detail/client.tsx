@@ -3,10 +3,12 @@
 import { Box, Container, Fab, IconButton, List, ListItem, ListItemText, Tab, Tabs, TabsOwnProps } from '@mui/material';
 import dayjs from 'dayjs';
 import { SyntheticEvent, useCallback, useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+import { toast } from 'react-toastify';
 import { GameDetailResponse } from '@types';
+import { removeGame } from '@api-client';
 import Header from './Header';
 import UserAddModal from './UserAddModal';
 
@@ -22,6 +24,7 @@ const TabList = [
 ];
 
 const Client = ({ data }: ClientProps) => {
+  const router = useRouter();
   const param = useSearchParams();
   const playDt = param.get('playDt') as string;
   const [tabValue, setTabValue] = useState(1);
@@ -40,6 +43,11 @@ const Client = ({ data }: ClientProps) => {
     setTabValue(isWeekend ? 2 : 4);
   }, [isWeekend]);
 
+  const gameMatchedPlayPart = useMemo(
+    () => data.gameList.find(game => game.playPart === tabValue),
+    [data.gameList, tabValue],
+  );
+
   const handleChangeTab: TabsOwnProps['onChange'] = useCallback((_: SyntheticEvent, value: number) => {
     setTabValue(value);
   }, []);
@@ -52,7 +60,21 @@ const Client = ({ data }: ClientProps) => {
     setIsOpen(false);
   }, []);
 
-  const handleRemoveUser = useCallback(() => {}, []);
+  const handleRemoveUser = useCallback(
+    async (id: number) => {
+      try {
+        await removeGame({
+          play_dt: playDt,
+          userids: gameMatchedPlayPart?.userList.filter(user => user.id !== id).map(user => user.id) ?? [],
+        });
+        router.refresh();
+        toast('삭제 성공', { type: 'success' });
+      } catch (error) {
+        toast((error as Error).message, { type: 'error' });
+      }
+    },
+    [gameMatchedPlayPart?.userList, playDt, router],
+  );
 
   return (
     <>
@@ -68,22 +90,19 @@ const Client = ({ data }: ClientProps) => {
       </Box>
       <Container>
         <List>
-          {data.gameList
-            .filter(game => game.playPart === tabValue)
-            .map(game =>
-              game.userList.map(user => (
-                <ListItem
-                  key={user.id}
-                  secondaryAction={
-                    <IconButton edge="end" aria-label="delete" onClick={() => handleRemoveUser()}>
-                      <DeleteIcon />
-                    </IconButton>
-                  }
-                >
-                  <ListItemText primary={user.userFullName} />
-                </ListItem>
-              )),
-            )}
+          <ListItem>{gameMatchedPlayPart?.userList.length || '0'} 명</ListItem>
+          {gameMatchedPlayPart?.userList.map(user => (
+            <ListItem
+              key={user.id}
+              secondaryAction={
+                <IconButton edge="end" aria-label="delete" onClick={() => handleRemoveUser(user.id)}>
+                  <DeleteIcon />
+                </IconButton>
+              }
+            >
+              <ListItemText primary={user.userFullName} />
+            </ListItem>
+          ))}
         </List>
       </Container>
       <Fab
@@ -102,6 +121,7 @@ const Client = ({ data }: ClientProps) => {
           userList={data.userList}
           playDt={playDt}
           playPart={tabValue}
+          userIdList={gameMatchedPlayPart?.userList.map(user => user.id) ?? []}
         />
       )}
     </>

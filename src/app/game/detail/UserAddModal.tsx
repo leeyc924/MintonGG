@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import NativeSelect from '@mui/material/NativeSelect';
 import { Modal } from '@components';
-import { GameDetailResponse } from '@types';
+import { GameDetailResponse, User } from '@types';
 import { addGame } from '@api-client';
 
 export interface UserAddModalProps {
@@ -17,11 +17,12 @@ export interface UserAddModalProps {
   onClose(): void;
   playDt: string;
   playPart: number;
+  userIdList: User['id'][];
 }
 
-const UserAddModal = ({ isOpen, onClose, userList, playDt, playPart }: UserAddModalProps) => {
+const UserAddModal = ({ isOpen, onClose, userList, playDt, playPart, userIdList }: UserAddModalProps) => {
   const router = useRouter();
-  const [checkIdList, setCheckIdList] = useState<number[]>([]);
+  const [checkIdList, setCheckIdList] = useState<number[]>(userIdList);
   const [part, setPart] = useState(playPart);
 
   const handleToggle = (value: number) => () => {
@@ -39,14 +40,14 @@ const UserAddModal = ({ isOpen, onClose, userList, playDt, playPart }: UserAddMo
 
   const handleSubmit = useCallback(async () => {
     try {
-      await addGame({ play_dt: playDt, userids: checkIdList, play_part: 4 });
+      await addGame({ play_dt: playDt, userids: checkIdList, play_part: playPart });
       router.refresh();
       toast('추가 성공', { type: 'success' });
       onClose();
     } catch (error) {
       toast('추가 실패', { type: 'error' });
     }
-  }, [checkIdList, onClose, playDt, router]);
+  }, [checkIdList, onClose, playDt, playPart, router]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="유저 추가/수정" onSubmit={handleSubmit} submitText="추가">

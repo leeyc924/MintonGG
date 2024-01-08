@@ -67,3 +67,8 @@ export interface GameAddRequest {
   userids: User['id'][];
   play_part: number;
 }
+
+export interface GameRemoveRequest {
+  play_dt: string;
+  userids: User['id'][];
+}

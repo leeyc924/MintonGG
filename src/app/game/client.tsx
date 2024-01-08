@@ -8,7 +8,7 @@ import { useCallback, useMemo, useState } from 'react';
 import Button from '@mui/material/Button';
 import LeftIcon from '@mui/icons-material/ArrowBackIosRounded';
 import RightIcon from '@mui/icons-material/ArrowForwardIosRounded';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { lunar } from '@utils-client';
 
 export interface GameClientProps {}
@@ -23,10 +23,12 @@ interface DateItem {
 }
 
 const GameClient = () => {
-  const TODAY = useMemo(() => dayjs(dayjs().format('YYYY-MM-DD')), []);
+  const param = useSearchParams();
+  const date = (param.get('date') as string) || dayjs().format('YYYY-MM');
+  const TODAY = useMemo(() => dayjs(dayjs().format('YYYY-MM')), []);
   const router = useRouter();
 
-  const [currentViewDate, setCurrentViewDate] = useState<Dayjs>(dayjs());
+  const currentViewDate = useMemo(() => dayjs(date), [date]);
   const [selectedDay, setSelectedDay] = useState<Dayjs | null>(null);
 
   const dayRowList = useMemo(() => {
@@ -147,13 +149,11 @@ const GameClient = () => {
           mb: 1,
         }}
       >
-        <Button onClick={() => setCurrentViewDate(prev => prev.subtract(1, 'month'))}>
+        <Button onClick={() => router.replace(`/game?date=${currentViewDate.subtract(1, 'month').format('YYYY-MM')}`)}>
           <LeftIcon />
         </Button>
-        <Typography>
-          {currentViewDate.year()}.{currentViewDate.month() + 1}
-        </Typography>
-        <Button onClick={() => setCurrentViewDate(prev => prev.add(1, 'month'))}>
+        <Typography>{currentViewDate.format('YYYY.MM')}</Typography>
+        <Button onClick={() => router.replace(`/game?date=${currentViewDate.add(1, 'month').format('YYYY-MM')}`)}>
           <RightIcon />
         </Button>
       </Box>
