@@ -22,7 +22,7 @@ const Tool = ({ data, session }: ToolProps) => {
   const copyUserList = useMemo(
     () =>
       data.userList.reduce((copyText, cur) => {
-        const name = `${cur.name}/${cur.age.slice(2, 4)}/${cur.address}/${cur.gender === 'F' ? '여' : '남'}`;
+        const name = cur['full_name'];
         return copyText + '\n' + name;
       }, ''),
     [data.userList],

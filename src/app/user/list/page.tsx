@@ -23,39 +23,53 @@ const UserListPage = async () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>
-                <Typography color="#333">no</Typography>
+              <TableCell align="center">
+                <Typography fontSize={13} color="#333">
+                  no
+                </Typography>
               </TableCell>
               <TableCell align="center">
-                <Typography color="#333">이름</Typography>
+                <Typography fontSize={13} color="#333">
+                  이름
+                </Typography>
               </TableCell>
               <TableCell align="center">
-                <Typography color="#333">가입일</Typography>
+                <Typography fontSize={13} color="#333">
+                  가입일
+                </Typography>
               </TableCell>
-              {/* <TableCell>
-                <Typography>최근참여일</Typography>
-              </TableCell> */}
+              <TableCell align="center">
+                <Typography fontSize={13} color="#333">
+                  최근참여일
+                </Typography>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {data.userList.map((user, index) => (
               <TableRow key={user.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                 <TableCell component="th" scope="row">
-                  <Typography color="#333">{index + 1}</Typography>
+                  <Typography fontSize={13} color="#333">
+                    {index + 1}
+                  </Typography>
                 </TableCell>
                 <TableCell align="center">
                   <Link href={`/user/detail?id=${user.id}`} prefetch={false}>
-                    <Typography color="#333">
-                      {user.name}/{user.age.slice(2, 4)}/{user.address}/{user.gender === 'F' ? '여' : '남'}
+                    <Typography fontSize={13} color="#333">
+                      {user['full_name']}
                     </Typography>
                   </Link>
                 </TableCell>
                 <TableCell align="center">
-                  <Typography color="#333">{dayjs(user.join_dt).format('YY.MM.DD')}</Typography>
+                  <Typography fontSize={13} color="#333">
+                    {dayjs(user.join_dt).format('YY.MM.DD')}
+                  </Typography>
                 </TableCell>
-                {/* <TableCell align="right">
-                  <Typography>23.11.28</Typography>
-                </TableCell> */}
+                <TableCell align="center">
+                  <Typography fontSize={13} color="#333">
+                    {user['play_dt'] ? dayjs(user['play_dt']).format('YY.MM.DD') : '-'}
+                  </Typography>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -19,7 +19,12 @@ export interface UserListResponse {
   /**
    * user 목록
    */
-  userList: User[];
+  userList: {
+    id: User['id'];
+    full_name: string;
+    play_dt: string;
+    join_dt: string;
+  }[];
 }
 
 export interface UserDetailRequest {
