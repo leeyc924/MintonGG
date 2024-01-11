@@ -10,8 +10,11 @@ import LeftIcon from '@mui/icons-material/ArrowBackIosRounded';
 import RightIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { lunar } from '@utils-client';
+import { GameListResponse } from '@types';
 
-export interface GameClientProps {}
+export interface GameClientProps {
+  data: GameListResponse;
+}
 interface DateItem {
   year: number;
   month: number;
@@ -22,10 +25,11 @@ interface DateItem {
   isNone: boolean;
 }
 
-const GameClient = () => {
+const GameClient = ({ data }: GameClientProps) => {
+  console.log(data);
   const param = useSearchParams();
   const date = (param.get('date') as string) || dayjs().format('YYYY-MM');
-  const TODAY = useMemo(() => dayjs(dayjs().format('YYYY-MM')), []);
+  const TODAY = useMemo(() => dayjs().startOf('month'), []);
   const router = useRouter();
 
   const currentViewDate = useMemo(() => dayjs(date), [date]);
@@ -205,12 +209,19 @@ const GameClient = () => {
                   {...(day.dayjs.isSame(TODAY) && {
                     sx: {
                       background: '#333',
-                      borderRadius: '4px',
+                      borderRadius: '50%',
                       color: '#fff',
+                      width: '20px',
+                      height: '20px',
                     },
                   })}
                 >
                   {!day.isNone && day.day}
+                </Typography>
+                <Typography variant="caption">
+                  {data[`${day.dayjs.format('YYYY-MM-DD')}`] ? '참여' : ''}
+                  <br />
+                  {data[`${day.dayjs.format('YYYY-MM-DD')}`]}
                 </Typography>
               </Box>
             ))}

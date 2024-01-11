@@ -43,6 +43,13 @@ export interface Game {
   ttl?: string;
 }
 
+export interface GameListRequest {
+  year: string;
+  month: string;
+}
+
+export type GameListResponse = Record<string, string>;
+
 export interface GameDetailRequest {
   playDt: string;
 }
