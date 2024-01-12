@@ -24,6 +24,7 @@ export interface UserListResponse {
     full_name: string;
     play_dt: string;
     join_dt: string;
+    play_count: string;
   }[];
 }
 

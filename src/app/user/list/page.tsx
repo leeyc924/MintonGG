@@ -68,6 +68,11 @@ const UserListPage = async () => {
                 <TableCell align="center">
                   <Typography fontSize={13} color="#333">
                     {user['play_dt'] ? dayjs(user['play_dt']).format('YY.MM.DD') : '-'}
+                    {user['play_count'] !== '0' && (
+                      <Typography fontSize={10} color="blue" variant="caption" sx={{ verticalAlign: 'top' }}>
+                        {user['play_count']}
+                      </Typography>
+                    )}
                   </Typography>
                 </TableCell>
               </TableRow>
