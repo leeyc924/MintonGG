@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { Controller, SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form';
 import { setCookie } from 'cookies-next';
+import dayjs from 'dayjs';
 import { authLogin } from '@api-client';
 
 interface FieldValue {
@@ -23,7 +24,7 @@ const LoginForm = () => {
     async ({ id, password }) => {
       try {
         const { accessToken } = await authLogin({ id, password });
-        setCookie('accessToken', accessToken);
+        setCookie('accessToken', accessToken, { expires: dayjs().add(365, 'day').toDate() });
         toast('로그인에 성공했습니다', { type: 'success' });
         router.replace('/');
       } catch (error) {
