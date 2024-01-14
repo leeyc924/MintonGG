@@ -10,6 +10,7 @@ import LocalizationProvider from './LocalizationProvider';
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1.0,
+  themeColor: 'black',
 };
 
 export const metadata: Metadata = {

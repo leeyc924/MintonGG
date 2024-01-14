@@ -1,11 +1,12 @@
 {
   "name": "MintonGG",
   "short_name": "민턴GG",
-  "start_url": "https://mintongg.netlify.netlify.app",
   "display": "standalone",
   "background_color": "#FFFFFF",
   "theme_color": "#000000",
   "description": "배드민턴 유저 관리",
+  "scope":"./",
+  "start_url": "./",
   "icons": [
     {
       "src": "icons/favicon.ico",
