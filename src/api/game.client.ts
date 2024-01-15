@@ -1,8 +1,8 @@
 import { GameAddRequest, GameRemoveRequest } from '@types';
 import { fetchClient } from '@utils-client';
 
-export const addGame = async (body: GameAddRequest) => {
-  await fetchClient.post<boolean>(`/game/add`, { body: JSON.stringify(body) });
+export const upsertGame = async (body: GameAddRequest) => {
+  await fetchClient.post<boolean>(`/game/upsert`, { body: JSON.stringify(body) });
   return true;
 };
 

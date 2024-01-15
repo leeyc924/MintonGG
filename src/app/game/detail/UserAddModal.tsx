@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import NativeSelect from '@mui/material/NativeSelect';
 import { Modal } from '@components';
 import { GameDetailResponse, User } from '@types';
-import { addGame } from '@api-client';
+import { upsertGame } from '@api-client';
 
 export interface UserAddModalProps {
   userList: GameDetailResponse['userList'];
@@ -40,7 +40,7 @@ const UserAddModal = ({ isOpen, onClose, userList, playDt, playPart, userIdList 
 
   const handleSubmit = useCallback(async () => {
     try {
-      await addGame({ play_dt: playDt, userids: checkIdList, play_part: playPart });
+      await upsertGame({ play_dt: playDt, userids: checkIdList, play_part: playPart });
       router.refresh();
       toast('추가 성공', { type: 'success' });
       onClose();

@@ -65,6 +65,7 @@ const Client = ({ data }: ClientProps) => {
       try {
         await removeGame({
           play_dt: playDt,
+          play_part: tabValue,
           userids: gameMatchedPlayPart?.userList.filter(user => user.id !== id).map(user => user.id) ?? [],
         });
         router.refresh();
@@ -73,7 +74,7 @@ const Client = ({ data }: ClientProps) => {
         toast((error as Error).message, { type: 'error' });
       }
     },
-    [gameMatchedPlayPart?.userList, playDt, router],
+    [gameMatchedPlayPart?.userList, playDt, router, tabValue],
   );
 
   return (
