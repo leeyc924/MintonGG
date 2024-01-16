@@ -26,7 +26,6 @@ interface DateItem {
 }
 
 const GameClient = ({ data }: GameClientProps) => {
-  console.log(data);
   const param = useSearchParams();
   const date = (param.get('date') as string) || dayjs().format('YYYY-MM');
   const TODAY = useMemo(() => dayjs().startOf('month'), []);

@@ -1,7 +1,7 @@
 {
   "name": "MintonGG",
   "short_name": "민턴GG",
-  "display": "standalone",
+  "display": "fullscreen",
   "background_color": "#FFFFFF",
   "theme_color": "#000000",
   "description": "배드민턴 유저 관리",
