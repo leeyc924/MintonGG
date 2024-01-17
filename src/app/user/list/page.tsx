@@ -11,6 +11,7 @@ import dayjs from 'dayjs';
 import { getUserList } from '@api-server';
 import { getSession } from '@utils-server';
 import Tool from './tool';
+import UserAdd from './UserAdd';
 
 const UserListPage = async () => {
   const data = await getUserList();
@@ -80,6 +81,7 @@ const UserListPage = async () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <UserAdd />
     </Container>
   );
 };
