@@ -3,11 +3,12 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { parseToNumber } from '@utils-client';
 import { getUserDetail } from '@api-server';
+import { getSession } from '@utils-server';
 import Client from './client';
 
 const UserDetailPage = async ({ searchParams }: { searchParams: { id: string } }) => {
   const id = parseToNumber(searchParams.id);
-
+  const session = getSession();
   const data = await getUserDetail({ id });
 
   return (
@@ -21,7 +22,7 @@ const UserDetailPage = async ({ searchParams }: { searchParams: { id: string } }
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}></Avatar>
-        <Client data={data} />
+        <Client data={data} session={session} />
       </Box>
     </Container>
   );

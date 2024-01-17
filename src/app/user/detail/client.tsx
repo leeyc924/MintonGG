@@ -15,10 +15,11 @@ import { DateField } from '@mui/x-date-pickers/DateField';
 import FormControl from '@mui/material/FormControl';
 import { toast } from 'react-toastify';
 import { editUser, removeUser } from '@api-client';
-import { Gender, UserDetailResponse } from '@types';
+import { Gender, Session, UserDetailResponse } from '@types';
 
 interface UseDetailClientProps {
   data: UserDetailResponse;
+  session: Session | null;
 }
 
 interface FieldValue {
@@ -30,7 +31,7 @@ interface FieldValue {
   join_dt: Dayjs;
 }
 
-const UserDetailPage = ({ data: { userInfo } }: UseDetailClientProps) => {
+const UserDetailPage = ({ data: { userInfo }, session }: UseDetailClientProps) => {
   const router = useRouter();
   const { handleSubmit, control } = useForm<FieldValue>({
     defaultValues: {
@@ -102,6 +103,7 @@ const UserDetailPage = ({ data: { userInfo } }: UseDetailClientProps) => {
               value={value}
               name={name}
               inputRef={ref}
+              disabled={session?.auth === 'USER'}
             />
           </div>
         )}
@@ -121,6 +123,7 @@ const UserDetailPage = ({ data: { userInfo } }: UseDetailClientProps) => {
               value={value}
               name={name}
               inputRef={ref}
+              disabled={session?.auth === 'USER'}
             />
           </div>
         )}
@@ -140,6 +143,7 @@ const UserDetailPage = ({ data: { userInfo } }: UseDetailClientProps) => {
               value={value}
               name={name}
               inputRef={ref}
+              disabled={session?.auth === 'USER'}
             />
           </div>
         )}
@@ -152,8 +156,8 @@ const UserDetailPage = ({ data: { userInfo } }: UseDetailClientProps) => {
           <div>
             <FormLabel>성별</FormLabel>
             <RadioGroup row name={name} value={value} onChange={onChange}>
-              <FormControlLabel value="M" control={<Radio />} label="남" />
-              <FormControlLabel value="F" control={<Radio />} label="여" />
+              <FormControlLabel value="M" control={<Radio />} label="남" disabled={session?.auth === 'USER'} />
+              <FormControlLabel value="F" control={<Radio />} label="여" disabled={session?.auth === 'USER'} />
             </RadioGroup>
           </div>
         )}
@@ -168,18 +172,26 @@ const UserDetailPage = ({ data: { userInfo } }: UseDetailClientProps) => {
         render={({ field: { onChange, value } }) => (
           <FormControl fullWidth>
             <FormLabel>가입일</FormLabel>
-            <DateField value={value} onChange={newValue => onChange(newValue)} format="YYYY.MM.DD" fullWidth />
+            <DateField
+              value={value}
+              onChange={newValue => onChange(newValue)}
+              format="YYYY.MM.DD"
+              fullWidth
+              disabled={session?.auth === 'USER'}
+            />
           </FormControl>
         )}
       />
-      <Box display="flex" gap={2} justifyContent={'right'}>
-        <Button color="error" variant="contained" sx={{ mt: 3, mb: 2 }} onClick={handleRemove}>
-          삭제
-        </Button>
-        <Button type="submit" color="primary" variant="contained" sx={{ mt: 3, mb: 2 }}>
-          수정
-        </Button>
-      </Box>
+      {session?.auth !== 'USER' && (
+        <Box display="flex" gap={2} justifyContent={'right'}>
+          <Button color="error" variant="contained" sx={{ mt: 3, mb: 2 }} onClick={handleRemove}>
+            삭제
+          </Button>
+          <Button type="submit" color="primary" variant="contained" sx={{ mt: 3, mb: 2 }}>
+            수정
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 };

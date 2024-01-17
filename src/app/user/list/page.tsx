@@ -81,7 +81,7 @@ const UserListPage = async () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <UserAdd />
+      {session?.auth !== 'USER' && <UserAdd />}
     </Container>
   );
 };
