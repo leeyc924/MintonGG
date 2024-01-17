@@ -110,7 +110,7 @@ const Client = ({ data }: ClientProps) => {
         size="small"
         color="primary"
         aria-label="add"
-        sx={{ position: 'fixed', right: '20px', bottom: '75px' }}
+        sx={{ position: 'fixed', left: '20px', bottom: '75px' }}
         onClick={() => handleOpenModal()}
       >
         <AddIcon />
