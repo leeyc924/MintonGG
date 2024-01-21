@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Box from '@mui/material/Box';
+import Script from 'next/script';
 import { Nav } from '@components';
 import LocalizationProvider from './LocalizationProvider';
 
@@ -14,12 +15,11 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  manifest: 'manifest.json',
   icons: {
     other: [
       {
         rel: 'alternate icon',
-        url: '/icons/favicon.ico',
+        url: '/favicon.ico',
         type: 'ico',
         sizes: '16x16',
       },
@@ -36,6 +36,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="ko">
       <body>
+        {/* <Script src="/service-worker.js" /> */}
         <LocalizationProvider>
           <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
             <Box sx={{ flex: 1, overflowY: 'auto', overflowX: 'hidden' }}>{props.children}</Box>
