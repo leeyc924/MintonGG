@@ -14,8 +14,6 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'Minton GG',
-  description: 'minton gg pwa',
   manifest: 'manifest.json',
   icons: {
     other: [
