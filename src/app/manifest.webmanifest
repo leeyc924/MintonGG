@@ -1,15 +1,15 @@
 {
-  "name": "MintonGG",
-  "short_name": "민턴GG",
+  "name": "동유매",
+  "short_name": "동유매",
   "display": "fullscreen",
   "background_color": "#FFFFFF",
   "theme_color": "#000000",
-  "description": "배드민턴 유저 관리",
+  "description": "동호회 회원 관리",
   "orientation": "portrait",
   "scope":"/",
   "start_url": "/",
   "lang": "ko-KR",
-  "id": "mintonGG",
+  "id": "clubUserManager",
   "icons": [
       {
           "src": "icons/icon-128x128.png",
