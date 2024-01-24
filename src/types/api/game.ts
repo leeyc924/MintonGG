@@ -57,14 +57,14 @@ export interface GameDetailRequest {
 export interface GameDetailResponse {
   userList: {
     id: User['id'];
-    userFullName: string;
+    full_name: string;
   }[];
   gameList: {
     playDt: string;
     playPart: number;
     userList: {
       id: User['id'];
-      userFullName: string;
+      full_name: string;
     }[];
   }[];
 }

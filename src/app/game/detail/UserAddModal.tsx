@@ -68,7 +68,7 @@ const UserAddModal = ({ isOpen, onClose, userList, playDt, playPart, userIdList 
                 tabIndex={-1}
               />
             </ListItemIcon>
-            <ListItemText primary={user.userFullName} />
+            <ListItemText primary={user.full_name} />
           </ListItemButton>
         ))}
       </List>

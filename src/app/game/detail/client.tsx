@@ -29,7 +29,7 @@ const Client = ({ data }: ClientProps) => {
   const playDt = param.get('playDt') as string;
   const [tabValue, setTabValue] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
-
+  console.log(`data`, data);
   const isWeekend = useMemo(() => {
     const day = dayjs(playDt).format('d');
     if (day === '0' || day === '6') {
@@ -101,7 +101,7 @@ const Client = ({ data }: ClientProps) => {
                 </IconButton>
               }
             >
-              <ListItemText primary={user.userFullName} />
+              <ListItemText primary={user.full_name} />
             </ListItem>
           ))}
         </List>
