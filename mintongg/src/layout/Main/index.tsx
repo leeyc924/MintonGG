@@ -6,12 +6,11 @@ import * as styles from './index.css';
 const MainLayout = () => {
   return (
     <div className={styles.root}>
-      <header className={styles.header}>header</header>
-      <main className={styles.main}>
+      <div className={styles.container}>
         <Suspense fallback={<>...loading</>}>
           <Outlet />
         </Suspense>
-      </main>
+      </div>
       <Nav />
     </div>
   );

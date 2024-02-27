@@ -19,7 +19,7 @@ const Link = ({ iconName, path }: { path: string; iconName: IconProps['name'] })
   return (
     <li className={styles.li}>
       <NavLink to={path}>
-        <Icon color={palette.SurfaceVariantOn} name={iconName} />
+        <Icon color={palette.onSurfaceVariant} name={iconName} />
       </NavLink>
     </li>
   );

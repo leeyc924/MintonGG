@@ -5,8 +5,8 @@ export const nav = style({
   flexShrink: 0,
   width: '100%',
   height: 50,
-  background: palette.SurfaceVariant,
-  borderTop: `1px solid ${palette.Outline}`,
+  background: palette.surfaceContainer,
+  borderTop: `1px solid ${palette.outline}`,
 });
 
 export const ul = style({
@@ -21,4 +21,5 @@ export const li = style({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
+  lineHeight: 0,
 });

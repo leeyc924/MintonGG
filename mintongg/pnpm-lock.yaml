@@ -9,8 +9,8 @@ dependencies:
     specifier: ^0.0.7
     version: 0.0.7
   '@breadlee/ui':
-    specifier: ^0.0.5
-    version: 0.0.5(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^0.0.10
+    version: 0.0.10(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
   '@breadlee/utils':
     specifier: ^0.0.4
     version: 0.0.4
@@ -359,8 +359,8 @@ packages:
     resolution: {integrity: sha512-xY3QZHfxTkSTV7HvCqaLOsGbB+5YRhaMQzYX7+BV7iAwNS6Jpqv7prKh6eq+QYZFM5tEOmowu8avK2KnPF/r6A==}
     dev: true
 
-  /@breadlee/ui@0.0.5(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-jQAqcgvkIlgmD/447NcYCYBmZ8xamWrq7doKm0z6Wv1ojf20H8CNT4WHgMcji0Uc/NttvbIjC+OLWwAZvZRL+g==}
+  /@breadlee/ui@0.0.10(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-zhQ8cDy2bwTReB3IMum3MROudbhpPJz8/WlgLareMkAH/ccEimXDZtvDVUF1hUdvaCmUOFTw52I9uZqJlFKZGg==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0

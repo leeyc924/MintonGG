@@ -5,6 +5,9 @@ import { lazy } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import MainLayout from './layout/Main';
 import AuthLayout from './layout/Auth';
+import '@breadlee/ui/dist/css/index.css';
+import '@breadlee/icons/dist/icons.css';
+import '@breadlee/icons/dist/icons.woff';
 
 const HomePage = lazy(() => import('./pages/index'));
 const LoginPage = lazy(() => import('./pages/account/login'));
@@ -88,7 +91,7 @@ const router = createBrowserRouter([
 const queryClient = new QueryClient();
 createRoot(document.getElementById('root') as HTMLElement).render(
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider>
+    <ThemeProvider theme="light">
       <RouterProvider router={router} />
     </ThemeProvider>
   </QueryClientProvider>,

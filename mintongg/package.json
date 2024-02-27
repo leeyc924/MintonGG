@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@breadlee/icons": "^0.0.7",
-    "@breadlee/ui": "^0.0.5",
+    "@breadlee/ui": "^0.0.10",
     "@breadlee/utils": "^0.0.4",
     "@tanstack/react-query": "^5.22.2",
     "dayjs": "^1.11.10",
