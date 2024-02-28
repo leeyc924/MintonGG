@@ -17,14 +17,28 @@ export const col = style({
   flex: 1,
 });
 
+export const edit = style({
+  maxWidth: 30,
+  transform: 'rotate(90deg)',
+});
+
+export const top = style({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-evenly',
+  padding: '0 20px',
+  height: 40,
+  gap: 10,
+});
+
 export const row = style({
   display: 'flex',
   alignItems: 'center',
   height: 60,
-  padding: '0 20px',
+  padding: '0 10px 0 20px',
   selectors: {
     '& + &': {
-      borderTop: `1px solid ${palette.outline}`,
+      borderTop: `1px solid ${palette.outlineVariant}`,
     },
   },
 });
