@@ -12,7 +12,7 @@ export const getUserDetail = async ({ id }: UserDetailRequest) => {
 };
 
 export const addUser = async (body: UserAddRequest) => {
-  await axiosClient.post<boolean>(`/user/add`, { body });
+  await axiosClient.post<boolean>(`/user/add`, body);
   return true;
 };
 

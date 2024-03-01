@@ -1,5 +1,5 @@
 import { palette } from '@breadlee/ui';
-import { style } from '@vanilla-extract/css';
+import { style, styleVariants } from '@vanilla-extract/css';
 
 export const count = style({
   fontSize: 10,
@@ -11,10 +11,27 @@ export const container = style({
   padding: '10px 0',
 });
 
-export const col = style({
-  display: 'inline-flex',
-  justifyContent: 'center',
-  flex: 1,
+export const col = styleVariants({
+  0: {
+    display: 'inline-flex',
+    justifyContent: 'center',
+    flexBasis: 30,
+  },
+  1: {
+    display: 'inline-flex',
+    justifyContent: 'center',
+    flex: 2,
+  },
+  2: {
+    display: 'inline-flex',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  3: {
+    display: 'inline-flex',
+    justifyContent: 'center',
+    flex: 1,
+  },
 });
 
 export const edit = style({
@@ -41,4 +58,15 @@ export const row = style({
       borderTop: `1px solid ${palette.outlineVariant}`,
     },
   },
+});
+
+export const form = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 20,
+});
+
+export const formRow = style({
+  display: 'flex',
+  gap: 10,
 });

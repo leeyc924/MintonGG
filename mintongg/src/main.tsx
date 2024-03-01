@@ -3,8 +3,10 @@ import { ThemeProvider } from '@breadlee/ui';
 import { RouterProvider, Navigate, createBrowserRouter } from 'react-router-dom';
 import { lazy } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import ToastContainer from '@components/ToastContainer';
 import MainLayout from './layout/Main';
 import AuthLayout from './layout/Auth';
+import 'react-toastify/dist/ReactToastify.css';
 import '@breadlee/ui/dist/css/index.css';
 import '@breadlee/icons/dist/icons.css';
 import '@breadlee/icons/dist/icons.woff';
@@ -93,6 +95,7 @@ createRoot(document.getElementById('root') as HTMLElement).render(
   <QueryClientProvider client={queryClient}>
     <ThemeProvider theme="light">
       <RouterProvider router={router} />
+      <ToastContainer />
     </ThemeProvider>
   </QueryClientProvider>,
 );

@@ -22,6 +22,7 @@ export interface UserListResponse {
   userList: {
     id: User['id'];
     full_name: string;
+    position: number;
     play_dt: string;
     join_dt: string;
     play_count: string;
