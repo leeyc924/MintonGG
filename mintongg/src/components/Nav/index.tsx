@@ -8,7 +8,7 @@ const Nav = () => {
     <nav className={styles.nav}>
       <ul className={styles.ul}>
         <Link iconName="home" path="/" />
-        <Link iconName="human" path="/user" />
+        <Link iconName="human" path="/user/list" />
         <Link iconName="calendar" path="/game" />
       </ul>
     </nav>

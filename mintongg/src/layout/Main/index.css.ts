@@ -13,6 +13,6 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   flex: 1,
-  overflow: 'hidden',
+  overflowY: 'auto',
   width: '100%',
 });

@@ -11,8 +11,7 @@ import * as styles from './index.css';
 import UserAddModal from './UserAddModal';
 
 const UserListPage = () => {
-  const { data } = useSuspenseQuery({ queryKey: ['todos'], queryFn: getUserList });
-
+  const { data } = useSuspenseQuery({ queryKey: ['user-list'], queryFn: getUserList });
   const { closeModal, modalOpenId, openModal } = useModalManager({ idList: ['userAdd'] });
 
   const { femaleCount, genderRatio, maleCount } = useMemo(() => {
@@ -34,7 +33,7 @@ const UserListPage = () => {
         const name = cur['full_name'];
         return copyText + '\n' + name;
       }, '') || '',
-    [data?.userList],
+    [data.userList],
   );
 
   const handleCopyUser = useCallback(async () => {

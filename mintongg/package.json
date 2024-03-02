@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@breadlee/icons": "^0.0.7",
-    "@breadlee/ui": "^0.0.10",
+    "@breadlee/ui": "link:../../leeyc-package/packages/ui",
     "@breadlee/utils": "^0.0.4",
     "@tanstack/react-query": "^5.22.2",
     "dayjs": "^1.11.10",
@@ -19,7 +19,8 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.50.1",
     "react-router-dom": "^6.22.1",
-    "react-toastify": "^10.0.4"
+    "react-toastify": "^10.0.4",
+    "zustand": "^4.5.1"
   },
   "devDependencies": {
     "@breadlee/eslint-config": "^0.0.1",

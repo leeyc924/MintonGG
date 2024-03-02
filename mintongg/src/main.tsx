@@ -19,6 +19,8 @@ const UserDetailPage = lazy(() => import('./pages/user/detail'));
 const GameListPage = lazy(() => import('./pages/game/list'));
 const GameDetailPage = lazy(() => import('./pages/game/detail'));
 
+const queryClient = new QueryClient();
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -90,7 +92,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-const queryClient = new QueryClient();
 createRoot(document.getElementById('root') as HTMLElement).render(
   <QueryClientProvider client={queryClient}>
     <ThemeProvider theme="light">
