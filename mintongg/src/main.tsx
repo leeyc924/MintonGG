@@ -94,7 +94,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider theme="light">
+    <ThemeProvider theme="dark">
       <RouterProvider router={router} />
       <ToastContainer />
     </ThemeProvider>

@@ -3,12 +3,22 @@ import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 function createAxios(requestConfig: AxiosRequestConfig): AxiosInstance {
   const axiosInstance = axios.create({
     baseURL: requestConfig.baseURL,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true,
   });
 
   axiosInstance.interceptors.response.use(
     response => response,
     async error => {
-      return Promise.reject(error);
+      const errorData = error.response?.data;
+      const status = error.response?.status;
+      if (status === 401) {
+        window.location.href = '/account/login';
+      }
+      return Promise.reject(errorData || error);
     },
   );
 

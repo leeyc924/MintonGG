@@ -4,6 +4,7 @@ import Icon from '@breadlee/icons';
 import { useCallback, useMemo } from 'react';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
+import { useSession } from '@store';
 import { getUserList } from '@api';
 import Header from '@components/Header';
 import Main from '@components/Main';
@@ -13,6 +14,7 @@ import UserAddModal from './UserAddModal';
 const UserListPage = () => {
   const { data } = useSuspenseQuery({ queryKey: ['user-list'], queryFn: getUserList });
   const { closeModal, modalOpenId, openModal } = useModalManager({ idList: ['userAdd'] });
+  const auth = useSession(state => state.auth);
 
   const { femaleCount, genderRatio, maleCount } = useMemo(() => {
     const { femaleCount, maleCount } = data.userList.reduce(
@@ -43,9 +45,11 @@ const UserListPage = () => {
   return (
     <>
       <Header title="유저목록">
-        <button style={{ marginRight: 15 }} type="button" onClick={() => openModal('userAdd')}>
-          <Icon color={palette.onSurface} name="plus" />
-        </button>
+        {(auth === 'ADMIN' || auth === 'MANAGER') && (
+          <button style={{ marginRight: 15 }} type="button" onClick={() => openModal('userAdd')}>
+            <Icon color={palette.onSurface} name="plus" />
+          </button>
+        )}
         <button type="button" onClick={() => handleCopyUser()}>
           <Icon color={palette.onSurface} name="copy" />
         </button>

@@ -8,7 +8,7 @@ const ToastContainer = () => {
   }
   return createPortal(
     <Container
-      autoClose={300}
+      autoClose={400}
       position="bottom-center"
       style={{ bottom: 30, width: '90vw', left: '50%', transform: 'translate(-50%)' }}
     />,
