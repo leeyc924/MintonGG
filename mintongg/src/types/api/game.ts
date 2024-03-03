@@ -44,8 +44,8 @@ export interface Game {
 }
 
 export interface GameListRequest {
-  year: string;
-  month: string;
+  start: string;
+  end: string;
 }
 
 export type GameListResponse = Record<string, string>;
