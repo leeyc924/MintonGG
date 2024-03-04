@@ -16,8 +16,7 @@ const LoginPage = lazy(() => import('./pages/account/login'));
 const LogoutPage = lazy(() => import('./pages/account/logout'));
 const UserListPage = lazy(() => import('./pages/user/list'));
 const UserDetailPage = lazy(() => import('./pages/user/detail'));
-const GameListPage = lazy(() => import('./pages/game/list'));
-const GameDetailPage = lazy(() => import('./pages/game/detail'));
+const GamePage = lazy(() => import('./pages/game'));
 
 const queryClient = new QueryClient();
 
@@ -74,15 +73,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/game/list" />,
-      },
-      {
-        path: 'list',
-        element: <GameListPage />,
-      },
-      {
-        path: 'detail',
-        element: <GameDetailPage />,
+        element: <GamePage />,
       },
     ],
   },
@@ -94,7 +85,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider theme="dark">
+    <ThemeProvider theme="light">
       <RouterProvider router={router} />
       <ToastContainer />
     </ThemeProvider>

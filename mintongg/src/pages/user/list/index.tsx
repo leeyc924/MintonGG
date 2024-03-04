@@ -1,4 +1,5 @@
 import { Typography, palette, useModalManager } from '@breadlee/ui';
+import { stringifyQuery } from '@breadlee/utils';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import Icon from '@breadlee/icons';
 import { useCallback, useMemo } from 'react';
@@ -93,7 +94,11 @@ const UserListPage = () => {
               >
                 {index + 1}
               </Typography>
-              <Link className={styles.col[1]} to={`/user/detail?id=${user.id}`} onClick={() => openModal('userAdd')}>
+              <Link
+                className={styles.col[1]}
+                to={`/user/detail${stringifyQuery({ id: user.id })}`}
+                onClick={() => openModal('userAdd')}
+              >
                 <Typography color="onSurface" variant="B3">
                   {user.full_name}
                 </Typography>

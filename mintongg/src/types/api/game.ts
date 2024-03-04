@@ -44,11 +44,16 @@ export interface Game {
 }
 
 export interface GameListRequest {
-  start: string;
-  end: string;
+  dateInfo: string;
 }
 
-export type GameListResponse = Record<string, string>;
+export interface GameListResponse {
+  gameList: {
+    play_dt: string;
+    id: User['id'];
+    full_name: string;
+  }[];
+}
 
 export interface GameDetailRequest {
   playDt: string;

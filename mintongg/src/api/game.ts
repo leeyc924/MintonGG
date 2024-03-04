@@ -19,8 +19,8 @@ export const removeGame = async (body: GameRemoveRequest) => {
   return true;
 };
 
-export const getGameList = async ({ end, start }: GameListRequest) => {
-  const response = await axiosClient.get<GameListResponse>(`/game2/list${stringifyQuery({ start: start, end: end })}`);
+export const getGameList = async ({ dateInfo }: GameListRequest) => {
+  const response = await axiosClient.get<GameListResponse>(`/game2/list${stringifyQuery({ dateInfo })}`);
   return response.data;
 };
 

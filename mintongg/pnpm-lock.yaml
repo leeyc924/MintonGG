@@ -12,8 +12,8 @@ dependencies:
     specifier: link:../../leeyc-package/packages/ui
     version: link:../../leeyc-package/packages/ui
   '@breadlee/utils':
-    specifier: ^0.0.4
-    version: 0.0.4
+    specifier: link:../../leeyc-package/packages/utils
+    version: link:../../leeyc-package/packages/utils
   '@tanstack/react-query':
     specifier: ^5.22.2
     version: 5.22.2(react@18.2.0)
@@ -364,10 +364,6 @@ packages:
   /@breadlee/tsconfig@0.0.2:
     resolution: {integrity: sha512-xY3QZHfxTkSTV7HvCqaLOsGbB+5YRhaMQzYX7+BV7iAwNS6Jpqv7prKh6eq+QYZFM5tEOmowu8avK2KnPF/r6A==}
     dev: true
-
-  /@breadlee/utils@0.0.4:
-    resolution: {integrity: sha512-GgH85/N+FdJzD5TWHerFWlD28nUebS9O6IUR9XQvf4ynaTKpKQJmlbf3GQswnQYnDkdbG5FicqfeCzogyX6UCA==}
-    dev: false
 
   /@emotion/hash@0.9.1:
     resolution: {integrity: sha512-gJB6HLm5rYwSLI6PQa+X1t5CFGrv1J1TWG+sOyMCeKz2ojaj6Fnl/rZEspogG+cvqbt4AE/2eIyD2QfLKTBNlQ==}

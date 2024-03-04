@@ -12,7 +12,7 @@
   "dependencies": {
     "@breadlee/icons": "^0.0.7",
     "@breadlee/ui": "link:../../leeyc-package/packages/ui",
-    "@breadlee/utils": "^0.0.4",
+    "@breadlee/utils": "link:../../leeyc-package/packages/utils",
     "@tanstack/react-query": "^5.22.2",
     "dayjs": "^1.11.10",
     "react": "^18.2.0",
