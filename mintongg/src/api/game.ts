@@ -1,3 +1,4 @@
+import { stringifyQuery } from '@breadlee/utils';
 import {
   GameDetailResponse,
   GameDetailRequest,
@@ -18,8 +19,8 @@ export const removeGame = async (body: GameRemoveRequest) => {
   return true;
 };
 
-export const getGameList = async ({ month, year }: GameListRequest) => {
-  const response = await axiosClient.get<GameListResponse>(`/game/list?year=${year}&month=${month}`);
+export const getGameList = async ({ end, start }: GameListRequest) => {
+  const response = await axiosClient.get<GameListResponse>(`/game2/list${stringifyQuery({ start: start, end: end })}`);
   return response.data;
 };
 
