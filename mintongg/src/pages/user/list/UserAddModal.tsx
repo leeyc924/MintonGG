@@ -2,6 +2,7 @@ import { BottomSheet, Radio, TextField } from '@breadlee/ui';
 import { useCallback, useState } from 'react';
 import dayjs from 'dayjs';
 import { toast } from 'react-toastify';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Gender } from '@types';
 import { addUser } from '@api';
 import * as styles from './index.css';
@@ -19,6 +20,12 @@ interface FieldValue {
 }
 
 const UserAddModal = ({ closeModal }: UserAddModalProps) => {
+  const client = useQueryClient();
+  const addUserMutation = useMutation({
+    mutationFn: addUser,
+    onSettled: () => client.invalidateQueries({ queryKey: ['user-list'] }),
+  });
+
   const [form, setForm] = useState<FieldValue>({
     name: '홍길동',
     age: '2002',
@@ -41,7 +48,7 @@ const UserAddModal = ({ closeModal }: UserAddModalProps) => {
         return;
       }
 
-      await addUser({
+      await addUserMutation.mutateAsync({
         address,
         age,
         gender,
@@ -53,7 +60,7 @@ const UserAddModal = ({ closeModal }: UserAddModalProps) => {
     } catch (error) {
       toast('추가 실패', { type: 'error' });
     }
-  }, [closeModal, form]);
+  }, [closeModal, form, addUserMutation]);
 
   const handleChange = useCallback((key: keyof FieldValue, value: string) => {
     setForm(form => ({ ...form, [key]: value }));

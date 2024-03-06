@@ -13,7 +13,7 @@ import * as styles from './index.css';
 import UserAddModal from './UserAddModal';
 
 const UserListPage = () => {
-  const { data } = useSuspenseQuery({ queryKey: ['user-list'], queryFn: getUserList });
+  const { data } = useSuspenseQuery({ queryKey: ['user-list'], queryFn: getUserList, staleTime: 1000 * 60 });
   const { closeModal, modalOpenId, openModal } = useModalManager({ idList: ['userAdd'] });
   const auth = useSession(state => state.auth);
 

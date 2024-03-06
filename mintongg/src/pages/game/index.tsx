@@ -2,33 +2,39 @@ import { Calendar, CalendarProps, Typography, palette, useModalManager } from '@
 import { useCallback, useMemo, useState } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
 import Icon from '@breadlee/icons';
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+import { toast } from 'react-toastify';
 import Header from '@components/Header';
 import { useSession } from '@store';
 import Main from '@components/Main';
-import { getGameList, getUserList } from '@api';
+import { getGameList, getUserList, removeGame } from '@api';
 import { User } from '@types';
 import * as styles from './index.css';
 import GameAddModal from './GameAddModal';
 
 const GameListPage = () => {
+  const client = useQueryClient();
   const auth = useSession(state => state.auth);
   const { closeModal, modalOpenId, openModal } = useModalManager({ idList: ['gameAdd'] });
   const [selectedDateList, setSelectedDateList] = useState<Dayjs[]>([dayjs()]);
-  const dateInfo = useMemo(
+  const playDt = useMemo(
     () => (selectedDateList.length > 0 ? selectedDateList[0].format('YYYY-MM-DD') : null),
     [selectedDateList],
   );
 
   const { data } = useQuery({
-    queryKey: ['game', dateInfo],
-    queryFn: dateInfo ? () => getGameList({ dateInfo }) : undefined,
+    queryKey: ['game', playDt],
+    queryFn: playDt ? () => getGameList({ playDt }) : undefined,
     placeholderData: keepPreviousData,
-    staleTime: 3000,
-    enabled: !!dateInfo,
+    staleTime: 1000 * 60,
+    enabled: !!playDt,
   });
-  const { data: userListData } = useQuery({ queryKey: ['user-list'], queryFn: getUserList });
+  const { data: userListData } = useQuery({ queryKey: ['user-list'], queryFn: getUserList, staleTime: 1000 * 60 });
+  const removeGameMutaion = useMutation({
+    mutationFn: removeGame,
+    onSettled: () => client.invalidateQueries({ queryKey: ['game', playDt] }),
+  });
 
   const handleClickDate = useCallback<CalendarProps['onDateClick']>(({ dateList }) => {
     setSelectedDateList(dateList);
@@ -38,7 +44,24 @@ const GameListPage = () => {
     setSelectedDateList([dayjsInfo.startOf('month')]);
   }, []);
 
-  const handleRemoveUser = useCallback((userId: User['id']) => {}, []);
+  const handleRemoveUser = useCallback(
+    async (userId: User['id']) => {
+      try {
+        if (!playDt) {
+          return;
+        }
+
+        await removeGameMutaion.mutateAsync({
+          play_dt: playDt,
+          userids: data?.gameList.filter(game => game.id !== userId).map(user => user.id) ?? [],
+        });
+        toast('삭제 성공', { type: 'success' });
+      } catch (error) {
+        toast((error as Error).message, { type: 'error' });
+      }
+    },
+    [data?.gameList, playDt, removeGameMutaion],
+  );
 
   return (
     <>
@@ -55,11 +78,17 @@ const GameListPage = () => {
             <div className={styles.gamelist}>
               <div className={styles.header}>
                 <Typography color="onSurface" component="h2" variant="B2">
-                  {dateInfo}
+                  {playDt}
+                  {data && data.gameList.length > 0 ? (
+                    <Typography color="primary" variant="B2">
+                      {' '}
+                      {data.gameList.length} 명
+                    </Typography>
+                  ) : null}
                 </Typography>
                 {(auth === 'ADMIN' || auth === 'MANAGER') && (
                   <button type="button" onClick={() => openModal('gameAdd')}>
-                    <Icon color={palette.onSurface} name="plus" />
+                    <Icon color={palette.onSurface} irName="게임 추가" name="plus" />
                   </button>
                 )}
               </div>
@@ -72,7 +101,7 @@ const GameListPage = () => {
                       </Typography>
                       {(auth === 'ADMIN' || auth === 'MANAGER') && (
                         <button type="button" onClick={() => handleRemoveUser(game.id)}>
-                          <Icon color={palette.onSecondary} name="close" size={16} />
+                          <Icon color={palette.onSecondary} irName="게임 삭제" name="close" size={16} />
                         </button>
                       )}
                     </div>
@@ -95,8 +124,8 @@ const GameListPage = () => {
           )}
         </div>
       </Main>
-      {modalOpenId === 'gameAdd' && (
-        <GameAddModal closeModal={closeModal} gameListData={data} userListData={userListData} />
+      {modalOpenId === 'gameAdd' && playDt && (
+        <GameAddModal closeModal={closeModal} gameListData={data} playDt={playDt} userListData={userListData} />
       )}
     </>
   );

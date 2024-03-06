@@ -1,4 +1,4 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Button, Radio, TextField, Typography } from '@breadlee/ui';
 import { parseToNumber } from '@breadlee/utils';
@@ -19,6 +19,7 @@ interface FieldValue {
 }
 
 const UserDetailPage = () => {
+  const client = useQueryClient();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const id = searchParams.get('id');
@@ -35,6 +36,14 @@ const UserDetailPage = () => {
     address: userInfo.address,
     gender: userInfo.gender,
     join_dt: dayjs(userInfo.join_dt).format('YYYY.MM.DD'),
+  });
+  const editUserMutation = useMutation({
+    mutationFn: editUser,
+    onSettled: () => client.invalidateQueries({ queryKey: ['user-list'] }),
+  });
+  const removeUserMutation = useMutation({
+    mutationFn: removeUser,
+    onSettled: () => client.invalidateQueries({ queryKey: ['user-list'] }),
   });
 
   const handleSubmit = useCallback(async () => {
@@ -54,7 +63,7 @@ const UserDetailPage = () => {
         return;
       }
 
-      await editUser({
+      await editUserMutation.mutateAsync({
         address,
         age,
         gender,
@@ -67,7 +76,7 @@ const UserDetailPage = () => {
       console.log(`error`, error);
       toast('수정에 실패했습니다', { type: 'error' });
     }
-  }, [form, userInfo?.id]);
+  }, [editUserMutation, form, userInfo.id]);
 
   const handleChange = useCallback((key: keyof FieldValue, value: string) => {
     setForm(form => ({ ...form, [key]: value }));
@@ -79,14 +88,14 @@ const UserDetailPage = () => {
         return;
       }
 
-      await removeUser({ id: userInfo?.id });
+      await removeUserMutation.mutateAsync({ id: userInfo?.id });
       toast('삭제에 성공했습니다', { type: 'success' });
       navigate('/user/list');
     } catch (error) {
       console.log(`error`, error);
       toast('삭제에 실패했습니다', { type: 'error' });
     }
-  }, [navigate, userInfo.id]);
+  }, [navigate, removeUserMutation, userInfo.id]);
 
   return (
     <form className={styles.container}>

@@ -44,7 +44,7 @@ export interface Game {
 }
 
 export interface GameListRequest {
-  dateInfo: string;
+  playDt: string;
 }
 
 export interface GameListResponse {
@@ -77,11 +77,9 @@ export interface GameDetailResponse {
 export interface GameAddRequest {
   play_dt: string;
   userids: User['id'][];
-  play_part: number;
 }
 
 export interface GameRemoveRequest {
   play_dt: string;
-  play_part: number;
   userids: User['id'][];
 }

@@ -9,22 +9,17 @@ import {
 } from '@types';
 import axiosClient from './instance';
 
+export const getGameList = async ({ playDt }: GameListRequest) => {
+  const response = await axiosClient.get<GameListResponse>(`/game2/list${stringifyQuery({ playDt })}`);
+  return response.data;
+};
+
 export const upsertGame = async (body: GameAddRequest) => {
-  await axiosClient.post<boolean>(`/game/upsert`, { body });
+  await axiosClient.post<boolean>(`/game2/upsert`, body);
   return true;
 };
 
 export const removeGame = async (body: GameRemoveRequest) => {
-  await axiosClient.post<boolean>(`/game/remove`, { body });
+  await axiosClient.post<boolean>(`/game2/remove`, body);
   return true;
-};
-
-export const getGameList = async ({ dateInfo }: GameListRequest) => {
-  const response = await axiosClient.get<GameListResponse>(`/game2/list${stringifyQuery({ dateInfo })}`);
-  return response.data;
-};
-
-export const getGameDetail = async ({ playDt }: GameDetailRequest) => {
-  const response = await axiosClient.get<GameDetailResponse>(`/game/detail?playDt=${playDt}`);
-  return response.data;
 };
