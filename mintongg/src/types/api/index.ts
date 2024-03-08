@@ -44,4 +44,8 @@ export interface User {
    * 수정 날짜
    */
   mod_dt: string;
+  /**
+   * 0: 방장 1: 부방장 2: 회원
+   */
+  position: 0 | 1 | 2;
 }

@@ -89,4 +89,8 @@ export interface UserEditRequest {
    * 가입 날짜
    */
   join_dt: string;
+  /**
+   * 직위
+   */
+  position: User['position'];
 }
