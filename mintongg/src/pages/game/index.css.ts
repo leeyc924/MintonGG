@@ -2,7 +2,6 @@ import { palette } from '@breadlee/ui';
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
-  padding: 20,
   width: '100%',
   height: '100%',
   display: 'flex',

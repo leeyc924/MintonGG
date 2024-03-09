@@ -4,7 +4,6 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   width: 300,
-  padding: '20px 0',
   margin: '0 auto',
   gap: 20,
 });

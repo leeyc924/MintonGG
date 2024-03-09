@@ -1,3 +1,4 @@
+export * from './home';
 export * from './users';
 export * from './game';
 export * from './auth';

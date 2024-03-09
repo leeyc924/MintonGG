@@ -8,7 +8,6 @@ export const count = style({
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
-  padding: '10px 0',
 });
 
 export const col = styleVariants({

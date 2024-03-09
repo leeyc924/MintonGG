@@ -11,7 +11,7 @@ import '@breadlee/ui/dist/css/index.css';
 import '@breadlee/icons/dist/icons.css';
 import '@breadlee/icons/dist/icons.woff';
 
-const HomePage = lazy(() => import('./pages/index'));
+const HomePage = lazy(() => import('./pages/home/index'));
 const LoginPage = lazy(() => import('./pages/account/login'));
 const LogoutPage = lazy(() => import('./pages/account/logout'));
 const UserListPage = lazy(() => import('./pages/user/list'));
@@ -23,6 +23,16 @@ const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <MainLayout />,
+    children: [
+      {
+        index: true,
+        element: <Navigate to="/home" />,
+      },
+    ],
+  },
+  {
+    path: '/home',
     element: <MainLayout />,
     children: [
       {
@@ -79,7 +89,7 @@ const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <Navigate to="/" />,
+    element: <Navigate to="/home" />,
   },
 ]);
 
