@@ -1,15 +1,15 @@
 import { Typography } from '@breadlee/ui';
 import dayjs from 'dayjs';
-import { ReactNode } from 'react';
+import { ReactNode, useCallback } from 'react';
 import { useSuspenseQueries } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import Header from '@components/Header';
 import Main from '@components/Main';
-import { useSession } from '@store';
-import { getBestUser, getNewUserList } from '@api';
+import { authLogout, getBestUser, getNewUserList } from '@api';
 import * as styles from './index.css';
 
 const HomePage = () => {
-  const auth = useSession(state => state.auth);
+  const navigate = useNavigate();
   const [{ data: newUserListData }, { data: bestUserData }] = useSuspenseQueries({
     queries: [
       {
@@ -24,10 +24,20 @@ const HomePage = () => {
       },
     ],
   });
+  const handleLogout = useCallback(async () => {
+    await authLogout();
+    navigate('/account/login');
+  }, [navigate]);
 
   return (
     <>
-      <Header title="홈" />
+      <Header title="홈">
+        <button type="button" onClick={handleLogout}>
+          <Typography color="onSurface" variant="D1">
+            로그아웃
+          </Typography>
+        </button>
+      </Header>
       <Main>
         <div className={styles.container}>
           <Typography color="primary" component="h2" variant="B1">

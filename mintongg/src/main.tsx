@@ -13,7 +13,6 @@ import '@breadlee/icons/dist/icons.woff';
 
 const HomePage = lazy(() => import('./pages/home/index'));
 const LoginPage = lazy(() => import('./pages/account/login'));
-const LogoutPage = lazy(() => import('./pages/account/logout'));
 const UserListPage = lazy(() => import('./pages/user/list'));
 const UserDetailPage = lazy(() => import('./pages/user/detail'));
 const GamePage = lazy(() => import('./pages/game'));
@@ -27,7 +26,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/home" />,
+        element: <Navigate to="/login" />,
       },
     ],
   },
@@ -52,10 +51,6 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <LoginPage />,
-      },
-      {
-        path: 'logout',
-        element: <LogoutPage />,
       },
     ],
   },

@@ -7,6 +7,12 @@ export const authLogin = async ({ id, password }: AuthLoginRequest) => {
   return response.data;
 };
 
+export const authLogout = async () => {
+  const response = await axiosClient.post<AuthLoginResponse>('/auth/logout');
+
+  return response.data;
+};
+
 export const authCheck = async () => {
   const response = await axiosClient.post('/auth/check');
 

@@ -12,13 +12,8 @@ const MainLayout = () => {
 
   useEffect(() => {
     (async function () {
-      try {
-        const { auth } = await authCheck();
-        setAuth(auth);
-      } catch (error) {
-        toast('로그인정보가 없습니다', { type: 'error' });
-        navigate('/account/login', { replace: true });
-      }
+      const { auth } = await authCheck();
+      setAuth(auth);
     })();
   }, [navigate, setAuth]);
 
