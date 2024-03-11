@@ -2,6 +2,7 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
+    <meta name="theme-color" content="#000000" />
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <link
       rel="stylesheet"
@@ -10,6 +11,13 @@
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="alternate icon" url="/favicon.ico" type="ico" sizes="16x16" />
+    <link
+      rel="apple-touch-icon"
+      url="icons/apple-touch-icon.png"
+      sizes="180x180"
+    />
     <title>동유매</title>
   </head>
   <body>
@@ -17,5 +25,21 @@
     <div id="modal"></div>
     <div id="toast"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        // Register a service worker hosted at the root of the
+        // site using the default scope.
+        navigator.serviceWorker
+          .register("/sw.js")
+          .then((registration) => {
+            console.log("Service worker registration succeeded:", registration);
+          })
+          .catch((err) => {
+            console.log("Service worker registration failed:", error);
+          });
+      } else {
+        console.log("Service workers are not supported.");
+      }
+    </script>
   </body>
 </html>

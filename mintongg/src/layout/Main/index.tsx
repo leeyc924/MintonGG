@@ -1,13 +1,14 @@
 import { Suspense, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
-import { useSession } from '@store';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useSession } from '@store';
 import Nav from '@components/Nav';
 import { authCheck } from '@api';
 import * as styles from './index.css';
 
 const MainLayout = () => {
   const { auth, setAuth } = useSession();
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async function () {
@@ -16,9 +17,10 @@ const MainLayout = () => {
         setAuth(auth);
       } catch (error) {
         toast('로그인정보가 없습니다', { type: 'error' });
+        navigate('/account/login', { replace: true });
       }
     })();
-  }, [setAuth]);
+  }, [navigate, setAuth]);
 
   if (auth === 'NONE') {
     return null;
