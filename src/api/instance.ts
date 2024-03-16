@@ -10,6 +10,12 @@ function createAxios(requestConfig: AxiosRequestConfig): AxiosInstance {
     withCredentials: true,
   });
 
+  axiosInstance.interceptors.request.use(config => {
+    const token = localStorage.getItem('accessToken') ?? '';
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  });
+
   axiosInstance.interceptors.response.use(
     response => response,
     async error => {

@@ -15,7 +15,8 @@ const LoginPage = () => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = async e => {
     e.preventDefault();
     try {
-      await authLogin(form);
+      const { accessToken } = await authLogin(form);
+      localStorage.setItem('accessToken', accessToken);
       toast('로그인에 성공했습니다', { type: 'success' });
       navigate('/', { replace: true });
     } catch (error) {

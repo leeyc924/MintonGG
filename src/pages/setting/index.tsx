@@ -3,7 +3,6 @@ import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '@components/Header';
 import Main from '@components/Main';
-import { authLogout } from '@api';
 import { useSession } from '@store';
 import * as styles from './index.css';
 
@@ -13,7 +12,7 @@ const SettingPage = () => {
   const [theme, setTheme] = useState(document.documentElement.getAttribute('data-theme-mode') ?? 'light');
 
   const handleLogout = useCallback(async () => {
-    await authLogout();
+    localStorage.removeItem('accessToken');
     navigate('/account/login');
   }, [navigate]);
 
