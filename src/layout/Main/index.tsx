@@ -1,6 +1,5 @@
 import { Suspense, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { useSession } from '@store';
 import Nav from '@components/Nav';
 import { authCheck } from '@api';
@@ -16,7 +15,7 @@ const MainLayout = () => {
         const { auth } = await authCheck();
         setAuth(auth);
       } catch (error) {
-        navigate('/account/login');
+        navigate('/account/login', { replace: true });
       }
     })();
   }, [navigate, setAuth]);

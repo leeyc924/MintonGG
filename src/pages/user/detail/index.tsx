@@ -95,7 +95,7 @@ const UserDetailPage = () => {
 
       await removeUserMutation.mutateAsync({ id: userInfo?.id });
       toast('삭제에 성공했습니다', { type: 'success' });
-      navigate('/user/list');
+      navigate('/user/list', { replace: true });
     } catch (error) {
       console.log(`error`, error);
       toast('삭제에 실패했습니다', { type: 'error' });

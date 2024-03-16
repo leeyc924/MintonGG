@@ -2,7 +2,6 @@ import { Typography } from '@breadlee/ui';
 import dayjs from 'dayjs';
 import { ReactNode } from 'react';
 import { useSuspenseQueries } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
 import Header from '@components/Header';
 import Main from '@components/Main';
 import { getBestUser, getNewUserList } from '@api';

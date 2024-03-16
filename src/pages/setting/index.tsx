@@ -13,7 +13,7 @@ const SettingPage = () => {
 
   const handleLogout = useCallback(async () => {
     localStorage.removeItem('accessToken');
-    navigate('/account/login');
+    navigate('/account/login', { replace: true });
   }, [navigate]);
 
   const handleChangeTheme = useCallback((theme: string) => {

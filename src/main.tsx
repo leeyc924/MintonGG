@@ -34,7 +34,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/login" />,
+        element: <Navigate to="/login" replace />,
       },
     ],
   },
@@ -54,7 +54,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/account/login" />,
+        element: <Navigate to="/account/login" replace />,
       },
       {
         path: 'login',
@@ -68,7 +68,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/user/list" />,
+        element: <Navigate to="/user/list" replace />,
       },
       {
         path: 'list',
@@ -102,7 +102,7 @@ const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <Navigate to="/home" />,
+    element: <Navigate to="/home" replace />,
   },
 ]);
 
