@@ -1,22 +1,28 @@
-'use client';
-import Link from 'next/link';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import MainIcon from '@mui/icons-material/HomeRounded';
-import UserIcon from '@mui/icons-material/PeopleAltRounded';
-import CalendarIcon from '@mui/icons-material/CalendarMonthRounded';
-import { usePathname } from 'next/navigation';
+import { NavLink } from 'react-router-dom';
+import Icon, { IconProps } from '@breadlee/icons';
+import { palette } from '@breadlee/ui';
+import * as styles from './index.css';
 
 const Nav = () => {
-  const pathname = usePathname();
+  return (
+    <nav className={styles.nav}>
+      <ul className={styles.ul}>
+        <Link iconName="home" path="/" />
+        <Link iconName="human" path="/user/list" />
+        <Link iconName="calendar" path="/game" />
+      </ul>
+    </nav>
+  );
+};
 
-  return pathname !== '/login' ? (
-    <BottomNavigation sx={{ borderTop: '1px solid #ddd' }}>
-      <BottomNavigationAction component={Link} href="/" icon={<MainIcon />} />
-      <BottomNavigationAction component={Link} href="/user/list" icon={<UserIcon />} />
-      <BottomNavigationAction component={Link} href="/game" icon={<CalendarIcon />} />
-    </BottomNavigation>
-  ) : null;
+const Link = ({ iconName, path }: { path: string; iconName: IconProps['name'] }) => {
+  return (
+    <li className={styles.li}>
+      <NavLink to={path}>
+        <Icon color={palette.onSurfaceVariant} name={iconName} />
+      </NavLink>
+    </li>
+  );
 };
 
 export default Nav;

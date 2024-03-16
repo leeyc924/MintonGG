@@ -1,5 +1,5 @@
-export * from './home';
 export * from './users';
+export * from './users_tier';
 export * from './game';
 export * from './auth';
 
@@ -45,8 +45,4 @@ export interface User {
    * 수정 날짜
    */
   mod_dt: string;
-  /**
-   * 0: 방장 1: 부방장 2: 회원
-   */
-  position: 0 | 1 | 2;
 }

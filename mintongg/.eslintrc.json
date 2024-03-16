@@ -1,7 +1,0 @@
-{
-  "root": true,
-  "env": { "browser": true, "es2020": true },
-  "extends": ["@breadlee/eslint-config"],
-  "ignorePatterns": ["dist", ".eslintrc.json"],
-  "plugins": ["react-refresh"]
-}

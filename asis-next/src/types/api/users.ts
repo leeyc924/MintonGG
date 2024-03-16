@@ -22,7 +22,6 @@ export interface UserListResponse {
   userList: {
     id: User['id'];
     full_name: string;
-    position: number;
     play_dt: string;
     join_dt: string;
     play_count: string;
@@ -89,8 +88,4 @@ export interface UserEditRequest {
    * 가입 날짜
    */
   join_dt: string;
-  /**
-   * 직위
-   */
-  position: User['position'];
 }
