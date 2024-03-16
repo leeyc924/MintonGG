@@ -18,7 +18,14 @@ const UserDetailPage = lazy(() => import('./pages/user/detail'));
 const GamePage = lazy(() => import('./pages/game'));
 const SettingPage = lazy(() => import('./pages/setting'));
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 0,
+      retryOnMount: false,
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {
