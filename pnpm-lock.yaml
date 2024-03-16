@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@breadlee/icons':
-    specifier: ^0.0.7
-    version: 0.0.7
+    specifier: ^0.0.8
+    version: 0.0.8
   '@breadlee/ui':
     specifier: ^0.0.12
     version: 0.0.12(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
@@ -357,8 +357,8 @@ packages:
       - typescript
     dev: true
 
-  /@breadlee/icons@0.0.7:
-    resolution: {integrity: sha512-QJxS8hnAiJ0G85y/zvaFXeJkUHwISkJPC4/Dm5ppd5RvGcLPmXb7IuBoAS4hwdnJanXZHEpxt8/D+AYdlPbGnw==}
+  /@breadlee/icons@0.0.8:
+    resolution: {integrity: sha512-01C+sIC2CSTaDYoOrkBrhurY8rOjfatpVOtkRpL4aPq6XofIlBwEsS5WHB7Ssn8xSnhQ51sQJkMOfwrV7R7H8A==}
     dev: false
 
   /@breadlee/tsconfig@0.0.2:

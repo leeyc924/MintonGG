@@ -16,6 +16,7 @@ const LoginPage = lazy(() => import('./pages/account/login'));
 const UserListPage = lazy(() => import('./pages/user/list'));
 const UserDetailPage = lazy(() => import('./pages/user/detail'));
 const GamePage = lazy(() => import('./pages/game'));
+const SettingPage = lazy(() => import('./pages/setting'));
 
 const queryClient = new QueryClient();
 
@@ -83,6 +84,16 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: '/setting',
+    element: <MainLayout />,
+    children: [
+      {
+        index: true,
+        element: <SettingPage />,
+      },
+    ],
+  },
+  {
     path: '*',
     element: <Navigate to="/home" />,
   },
@@ -90,7 +101,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider theme="light">
+    <ThemeProvider>
       <RouterProvider router={router} />
       <ToastContainer />
     </ThemeProvider>

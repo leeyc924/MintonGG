@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@breadlee/icons": "^0.0.7",
+    "@breadlee/icons": "^0.0.8",
     "@breadlee/ui": "^0.0.12",
     "@breadlee/utils": "^0.0.6",
     "@tanstack/react-query": "^5.22.2",

@@ -10,6 +10,7 @@ const Nav = () => {
         <Link iconName="home" path="/" />
         <Link iconName="human" path="/user/list" />
         <Link iconName="calendar" path="/game" />
+        <Link iconName="setting" path="/setting" />
       </ul>
     </nav>
   );

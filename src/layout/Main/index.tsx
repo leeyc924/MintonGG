@@ -12,8 +12,12 @@ const MainLayout = () => {
 
   useEffect(() => {
     (async function () {
-      const { auth } = await authCheck();
-      setAuth(auth);
+      try {
+        const { auth } = await authCheck();
+        setAuth(auth);
+      } catch (error) {
+        navigate('/account/login');
+      }
     })();
   }, [navigate, setAuth]);
 
