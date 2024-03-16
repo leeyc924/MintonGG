@@ -49,7 +49,7 @@ const HomePage = () => {
                 <Typography color="primary" variant="B3">
                   {joinDt}일
                 </Typography>
-                <div>
+                <div className={styles.row}>
                   {userList.map(user => (
                     <Typography color="onSurface" key={user.id} variant="D1">
                       {user.full_name}
